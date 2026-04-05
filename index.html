@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshat Gupta | UI/UX Designer</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress-bar" id="scrollProgress"></div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <h1 class="logo-text">Akshat Gupta</h1>
+        <div class="loading-bar">
+            <div class="fill"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#home" class="logo">
+            <img src="images/Logo.png.png" alt="Akshat Gupta Logo" class="nav-logo" style="width: 70px; height: 70px;">
+        </a>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#visits">Visits</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content wrapper for smooth scroll -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- Hero Section -->
+            <section class="hero" id="home">
+                <div class="hero-bg">
+                    <div class="gradient-blob shape-1"></div>
+                    <div class="gradient-blob shape-2"></div>
+                    <div class="noise-overlay"></div>
+                </div>
+                <div class="hero-content">
+                    <p class="hero-subtitle">Hello, I am</p>
+                    <h1 class="hero-title">Akshat Gupta</h1>
+                    <h2 class="hero-role">UI/UX Designer</h2>
+                    <a href="#projects" class="cta-button">Explore My Work</a>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="about" id="about">
+                <div class="container split-layout">
+                    <div class="about-text">
+                        <h2 class="section-title">About Me</h2>
+                        <p class="reveal-text">I'm a passionate UX/UI design student at Sushant University. I merge
+                            empathy with aesthetics to craft premium, data-driven digital experiences. With a deep
+                            understanding of user behavior, I design interfaces that feel alive.</p>
+                    </div>
+                    <div class="about-image-wrapper">
+                        <!-- Lazy loaded high quality tech placeholder -->
+                        <img src="/images/About Me image.png" alt="Akshat Profile Placeholder"
+                            class="parallax-img img-cover" loading="lazy">
+                        <div class="glass-card overlay-card">Designing the Future</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="skills" id="skills">
+                <div class="container">
+                    <h2 class="section-title text-center">My Arsenal</h2>
+                    <p class="section-subtitle text-center">Tools and teches I use to bring ideas to life.</p>
+
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <span class="skill-name">Figma</span>
+                            <div class="skill-level">
+                                <div class="level-fill" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-name">Photoshop</span>
+                            <div class="skill-level">
+                                <div class="level-fill" data-width="60%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-name">Canva</span>
+                            <div class="skill-level">
+                                <div class="level-fill" data-width="100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-name">Premiere Pro</span>
+                            <div class="skill-level">
+                                <div class="level-fill" data-width="75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-name">After Effects</span>
+                            <div class="skill-level">
+                                <div class="level-fill" data-width="40%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-name">CapCut</span>
+                            <div class="skill-level">
+                                <div class="level-fill" data-width="97%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-name">InShot</span>
+                            <div class="skill-level">
+                                <div class="level-fill" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience & Education Section -->
+            <section class="career" id="career">
+                <div class="container split-career">
+
+                    <div class="experience-col">
+                        <h2 class="section-title">Experience</h2>
+                        <div class="timeline">
+                            <div class="timeline-line"></div>
+
+                            <!-- 1. Xebia -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content glass-panel premium-glow">
+                                    <h3 class="job-title">UI/UX Design Intern</h3>
+                                    <span class="company">Xebia (Global IT Consulting MNC)</span>
+                                    <span class="duration">January 2026 – Present</span>
+                                    <ul class="exp-details">
+                                        <li>Working on project presentations and creating engaging visuals.</li>
+                                        <li>Designing professional brochures, interfaces, and marketing materials.</li>
+                                        <li>Helping others with LinkedIn profile banners.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 2. Writo Education -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content glass-panel">
+                                    <h3 class="job-title">Video Editor Intern</h3>
+                                    <span class="company">Writo Education Pvt. Ltd.</span>
+                                    <span class="duration">July 1, 2024 – August 31, 2024</span>
+                                    <p class="exp-details-text">Worked as a Video Editor Intern, creating and editing
+                                        educational and engaging video content. Gained hands-on experience in
+                                        storytelling, video production, and post-production workflows.</p>
+                                </div>
+                            </div>
+
+                            <!-- 3. WYLD -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content glass-panel">
+                                    <h3 class="job-title">Video Editing Intern</h3>
+                                    <span class="company">WYLD (in association with YouVah)</span>
+                                    <span class="duration">July 8, 2024 – August 5, 2024</span>
+                                    <p class="exp-details-text">Completed a task-based internship focused on video
+                                        editing and creative execution. Demonstrated strong dedication, problem-solving
+                                        skills, and active participation while continuously learning.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="education-col">
+                        <h2 class="section-title">Education</h2>
+                        <div class="timeline">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content glass-panel">
+                                    <h3>Sushant University</h3>
+                                    <p class="deg">UX/UI Design Student</p>
+                                    <span class="duration">Present</span>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content glass-panel">
+                                    <h3>Ramjas Public School (Day Boarding)</h3>
+                                    <p class="deg">Secondary Education</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="projects" id="projects">
+                <div class="container header-container">
+                    <h2 class="section-title">Selected Works</h2>
+                </div>
+                <div class="projects-pin-container">
+                    <div class="projects-wrapper">
+
+                        <div class="project-card">
+                            <div class="img-container">
+                                <img src="/images/Seemapuri cover 1.png" class="img-cover" loading="lazy"
+                                    alt="Project 1">
+                            </div>
+                            <div class="project-info glass-panel">
+                                <h3 style="color: black;">Reshaping Waste Workers Livelihoods in Seemapuri</h3>
+                                <p style="color: black;">A design initiative for improving waste management systems,
+                                    awareness, and
+                                    livelihoods in Seemapuri.</p>
+                                <a href="seemapuri-project.html" class="btn-outline">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="img-container">
+                                <img src="images/Sushant University Building.png" class="img-cover" loading="lazy"
+                                    alt="Project 2">
+                            </div>
+                            <div class="project-info glass-panel">
+                                <h3>AR-Based Wayfinding Navigation for University Campus</h3>
+                                <p>An immersive augmented reality experience designed to transform complex university
+                                    campuses into seamlessly navigated, interactive environments.</p>
+                                <a href="ar-navigation.html" class="btn-outline">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="img-container">
+                                <img src="/images/Brochurure Projects Cover.png"
+                                    class="img-cover" loading="lazy" alt="Project 3">
+                            </div>
+                            <div class="project-info glass-panel">
+                                <h3 style="color: black;">Brochures (Graphic Designing)</h3>
+                                <p style="color: black;">A showcase of brochures designed to communicate ideas visually.</p>
+                                <a href="xebia-brochures.html" class="btn-outline" style="color: black; border-color: black;">View Brochures</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Travel / Storytelling Section -->
+            <section class="visits" id="visits">
+                <div class="container text-center visits-intro" style="padding-bottom: 2rem;">
+                    <h2 class="section-title">A Global Perspective</h2>
+                    <p class="section-subtitle text-center" style="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">
+                        Traveling across the world has profoundly shaped my creative vision. Experiencing diverse cultures, architectures, and lifestyles has broadened my perspective, fuels my curiosity, and deeply inspires my design approach.
+                    </p>
+                    <p class="countries-list" style="margin-top: 1.5rem; color: var(--text-main); font-size: 0.82rem; letter-spacing: 0.5px; font-weight: 300; line-height: 1.8;">
+                        <strong>Countries Explored by Age 21:</strong><br>
+                        Austria • Belgium • Bhutan • France • Germany • Italy • Japan • Malaysia • Mauritius • Netherlands • Singapore • South Korea • Switzerland • Thailand • U.A.E. • U.K. • U.S.A.
+                    </p>
+                    <hr style="width: 100px; margin: 2rem auto; border: none; height: 1px; background: var(--accent-pink);">
+                    
+                    <h3 style="font-family: var(--font-primary); font-size: 1.8rem; margin-bottom: 0.8rem;">The Epitome of Futuristic Inspiration</h3>
+                    <p class="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1.05rem; line-height: 1.6;">
+                        While every destination broadened my horizons, <strong>South Korea</strong> and <strong>Japan</strong> captured my imagination like nowhere else. Their unparalleled fusion of hyper-advanced technology and cutting-edge digital environments profoundly shaped my tech-driven design aesthetic. Japan, in particular, stands out as my absolute favorite—a hyper-futuristic world whose relentless innovation constantly inspires how I approach digital interfaces today.
+                    </p>
+                </div>
+                
+                <div class="visit-panel">
+                    <img src="images/Seoul DDP.jpg"
+                        alt="Seoul DDP" class="visit-img img-cover" loading="lazy">
+                    <div class="visit-content">
+                        <h2 class="city-title">Seoul, DDP</h2>
+                        <p>Dongdaemun Design Plaza (DDP) in Seoul is a global hub for design and innovation, designed by Zaha Hadid. It features futuristic architecture and hosts exhibitions, fashion shows, and design events that inspire forward-thinking creativity.</p>
+                    </div>
+                </div>
+                <div class="visit-panel">
+                    <img src="/images/Teamlabs Tokyo.jpg"
+                        alt="Tokyo TeamLab" class="visit-img img-cover" loading="lazy">
+                    <div class="visit-content">
+                        <h2 class="city-title">Tokyo, TeamLab</h2>
+                        <p>TeamLab Planets Tokyo is an immersive digital art museum where visitors walk through water and interact with light and sound. It breaks boundaries between art and audience, creating unforgettable emotional experiences.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="contact" id="contact">
+                <div class="container text-center">
+                    <h2 class="section-title">Let's Create Together</h2>
+                    <p class="contact-desc">Currently open for new opportunities and collaborations.</p>
+
+                    <a href="mailto:akshatcore@gmail.com" class="main-email">akshatcore@gmail.com</a>
+
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/akshat-gupta-07210a307" target="_blank" class="social-icon">LinkedIn</a>
+                        <a href="https://www.instagram.com/its.akushatto2.0/" target="_blank" class="social-icon">Instagram</a>
+                        <a href="https://wa.me/447452327182" target="_blank" class="social-icon">WhatsApp</a>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="container footer-content text-center">
+                    <p>&copy; 2026 Akshat Gupta. Designed with passion.</p>
+                </div>
+            </footer>
+
+        </div> <!-- /smooth-content -->
+    </div> <!-- /smooth-wrapper -->
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR-Based Wayfinding Navigation | UX Case Study</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ar-style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="ar-theme">
+    <!-- Custom Cursor -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress-bar ar-progress-bar" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="ar-navbar">
+        <a href="index.html" class="ar-back-link">
+            <span>←</span> Back to Portfolio
+        </a>
+    </nav>
+
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- 1. HERO SECTION -->
+            <section class="ar-section ar-hero" id="ar-hero">
+                <!-- Abstract Map/Grid UI Background -->
+                <div class="ar-hero-bg">
+                    <div class="ar-grid-overlay"></div>
+                    <div class="ar-glow-blob top-right"></div>
+                    <div class="ar-glow-blob bottom-left"></div>
+                    <!-- Animated geometric shapes to simulate AR targeting -->
+                    <div class="ar-target-reticle reticle-1"></div>
+                    <div class="ar-target-reticle reticle-2"></div>
+                </div>
+                <div class="container ar-hero-inner text-center">
+                    <p class="ar-hero-subtitle fade-up">Immersive UX Concept</p>
+                    <h1 class="ar-hero-title fade-up delay-1">AR-Based Wayfinding<br>Navigation</h1>
+                    <p class="ar-hero-lead fade-up delay-2">Reimagining Campus Navigation with Augmented Reality</p>
+                </div>
+                <div class="ar-scroll-indicator fade-up delay-3">
+                    <div class="mouse"></div>
+                    <p>Initialize Sequence</p>
+                </div>
+            </section>
+
+            <!-- 2. PROJECT OVERVIEW -->
+            <section class="ar-section ar-overview">
+                <div class="container">
+                    <div class="ar-grid-2 align-center">
+                        <div class="ar-text-block fade-up">
+                            <h2 class="ar-section-title">Project Overview</h2>
+                            <p class="ar-para">University campuses are inherently complex, multi-layered environments
+                                that are notoriously difficult to navigate. Traditional 2D maps and static physical
+                                signage are inefficient, leading to persistent confusion.</p>
+                            <p class="ar-para">As a result, new students, faculty, and visitors frequently get lost,
+                                arrive late to critical engagements, and waste significant periods deciphering campus
+                                layouts.</p>
+                            <h3 class="ar-minor-title mt-2">The Goal</h3>
+                            <p class="ar-para">To architect a futuristic, AR-based navigation application that provides
+                                seamless, real-time spatial guidance across large campus infrastructures.</p>
+                        </div>
+                        <div class="ar-image-block fade-up delay-1">
+                            <img src="images/SU Classroom 1.jpg" alt="University Campus"
+                                class="ar-img rounded parallax-img opacity-80">
+                            <div class="ar-glass-panel ar-floating-card">
+                                <span class="ar-dot-indicator pulse"></span> Tracking Environment...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PROBLEM STATEMENT -->
+            <section class="ar-section ar-problem-statement">
+                <div class="container">
+                    <div class="ar-highlight-box fade-up">
+                        <h2 class="text-red mb-1">The Problem</h2>
+                        <p class="ar-lead-text">Students and visitors experience high cognitive load and spatial
+                            disorientation when arriving at sprawling university grounds. Finding specific
+                            <strong>classrooms</strong>, locating obscure <strong>departments</strong>, and navigating
+                            multi-building complexes relying strictly on static cues results in severe frustration.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. TARGET USERS -->
+            <section class="ar-section ar-target">
+                <div class="container text-center fade-up">
+                    <h2 class="ar-section-title">Target Users</h2>
+                    <div class="ar-flex-badges mt-3">
+                        <div class="ar-badge">Students</div>
+                        <div class="ar-badge">New Visitors</div>
+                        <div class="ar-badge">Faculty / Staff</div>
+                        <div class="ar-badge">Event Attendees</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. DESIGN PROCESS (DOUBLE DIAMOND) -->
+            <section class="ar-section ar-process">
+                <div class="container text-center">
+                    <h2 class="ar-section-title fade-up">Design Process</h2>
+                    <p class="ar-para fade-up opacity-70">A structured approach to spatial problem solving.</p>
+
+                    <div class="ar-process-flow fade-up delay-1 mt-4">
+                        <div class="ar-process-line">
+                            <div class="ar-process-line-fill"></div>
+                        </div>
+                        <div class="ar-process-step">
+                            <div class="ar-step-dot"></div>
+                            <h4>Discover</h4>
+                            <span>Research</span>
+                        </div>
+                        <div class="ar-process-step">
+                            <div class="ar-step-dot"></div>
+                            <h4>Define</h4>
+                            <span>Synthesis</span>
+                        </div>
+                        <div class="ar-process-step">
+                            <div class="ar-step-dot"></div>
+                            <h4>Develop</h4>
+                            <span>Ideation</span>
+                        </div>
+                        <div class="ar-process-step">
+                            <div class="ar-step-dot"></div>
+                            <h4>Deliver</h4>
+                            <span>Prototyping</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. DISCOVER (RESEARCH) -->
+            <section class="ar-section ar-discover">
+                <div class="container">
+                    <h2 class="ar-section-title fade-up">Discover Phase</h2>
+                    <div class="ar-grid-2 mt-3">
+                        <div class="ar-glass-card fade-up">
+                            <h3 class="ar-minor-title">Campus Constraints</h3>
+                            <p class="ar-para">Initial mapping revealed that 65% of students struggle to find specific
+                                rooms in secondary wings. Static maps require individuals to internally translate a flat
+                                2D blueprint into their 3D surroundings—a high-friction mental process.</p>
+                            <p class="ar-para mt-1">Furthermore, GPS fails indoors, leaving users entirely blind once
+                                they enter massive academic blocks.</p>
+                        </div>
+                        <div class="ar-glass-card fade-up delay-1">
+                            <img src="/images/SU 2.png" class="ar-img rounded grayscale" alt="Person looking at map">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. KEY INSIGHTS -->
+            <section class="ar-section ar-insights">
+                <div class="container">
+                    <h2 class="ar-section-title text-center fade-up">Key Insights</h2>
+                    <div class="ar-grid-auto mt-4">
+                        <div class="ar-insight-box fade-up">
+                            <div class="insight-icon">🪧</div>
+                            <h4>Signage Clarity</h4>
+                            <p>Current signs are easily ignored, outdated, and lack micro-level navigation cues.</p>
+                        </div>
+                        <div class="ar-insight-box fade-up delay-1">
+                            <div class="insight-icon">⏱️</div>
+                            <h4>Time Wastage</h4>
+                            <p>An average of 10-15 minutes is wasted per new campus visit searching for specific venues.
+                            </p>
+                        </div>
+                        <div class="ar-insight-box fade-up delay-2">
+                            <div class="insight-icon">📍</div>
+                            <h4>Real-Time Deficit</h4>
+                            <p>Users desire step-by-step contextual guidance exactly relative to their current heading.
+                            </p>
+                        </div>
+                        <div class="ar-insight-box fade-up">
+                            <div class="insight-icon">🏢</div>
+                            <h4>Indoor Blindspots</h4>
+                            <p>Traditional navigation maps break down upon entering multi-floor architecture.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. USER PERSONA -->
+            <section class="ar-section ar-persona">
+                <div class="container">
+                    <h2 class="ar-section-title text-center fade-up">User Persona</h2>
+
+                    <div class="ar-persona-card mt-4 fade-up">
+                        <div class="persona-header">
+                            <div class="persona-avatar">Y</div>
+                            <div class="persona-title">
+                                <h3>Yash Mishra</h3>
+                                <span>Freshman Student / First-Time Visitor</span>
+                            </div>
+                        </div>
+                        <div class="persona-body ar-grid-2">
+                            <div>
+                                <h5 class="text-red">Goals</h5>
+                                <ul class="ar-list">
+                                    <li>Navigate from the main gate to specific lecture halls seamlessly.</li>
+                                    <li>Explore the campus without the anxiety of getting profoundly lost.</li>
+                                    <li>Find quick routes to amenities like cafeterias and libraries.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="text-red">Pain Points</h5>
+                                <ul class="ar-list">
+                                    <li>Extremely disoriented by building abbreviations and confusing wings.</li>
+                                    <li>Anxious about walking into the wrong classrooms late.</li>
+                                    <li>Hates constantly asking strangers for directions.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. SOLUTION CONCEPT -->
+            <section class="ar-section ar-solution">
+                <div class="container text-center">
+                    <h2 class="ar-section-title fade-up">The Solution</h2>
+                    <p class="ar-lead-text fade-up mt-2">An <span class="text-red">AR-Based Wayfinding System</span>
+                        that eradicates mental spatial translation. By projecting dynamic, real-time directional
+                        overlays directly onto the physical environment through the mobile camera, users receive
+                        deterministic pathfinding.</p>
+                </div>
+            </section>
+
+            <!-- 10. HOW IT WORKS -->
+            <section class="ar-section ar-flow">
+                <div class="container">
+                    <h2 class="ar-section-title text-center fade-up">Activation Sequence</h2>
+
+                    <div class="ar-steps-container mt-4 fade-up delay-1">
+                        <div class="ar-step-item">
+                            <div class="step-num">01</div>
+                            <div class="step-content">
+                                <h4>Open Application</h4>
+                                <p>User selects destination from the campus directory.</p>
+                            </div>
+                        </div>
+                        <div class="ar-step-conn"></div>
+                        <div class="ar-step-item">
+                            <div class="step-num">02</div>
+                            <div class="step-content">
+                                <h4>Scan Environment</h4>
+                                <p>VPS (Visual Positioning) locks onto building facades.</p>
+                            </div>
+                        </div>
+                        <div class="ar-step-conn"></div>
+                        <div class="ar-step-item">
+                            <div class="step-num">03</div>
+                            <div class="step-content">
+                                <h4>Overlay Generation</h4>
+                                <p>Holographic AR path anchors to the floor dynamically.</p>
+                            </div>
+                        </div>
+                        <div class="ar-step-conn"></div>
+                        <div class="ar-step-item">
+                            <div class="step-num">04</div>
+                            <div class="step-content">
+                                <h4>Follow Directions</h4>
+                                <p>Real-time updates guide the user directly to the door.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. FEATURES -->
+            <section class="ar-section ar-features">
+                <div class="container">
+                    <h2 class="ar-section-title fade-up">Core Mechanics</h2>
+                    <div class="ar-grid-2 mt-4">
+                        <div class="ar-glass-card fade-up">
+                            <h3 class="text-red">Augmented Path Overlays</h3>
+                            <p class="mt-1">High-contrast, floating directional paths mapped directly onto physical
+                                surfaces in 3D space, preventing any directional ambiguity.</p>
+                        </div>
+                        <div class="ar-glass-card fade-up delay-1">
+                            <h3 class="text-red">Real-Time Context</h3>
+                            <p class="mt-1">Floating digital markers highlighting points of interest, departments, and
+                                utility rooms as you physically look at them through the lens.</p>
+                        </div>
+                        <div class="ar-glass-card fade-up">
+                            <h3 class="text-red">Indoor Seamlessness</h3>
+                            <p class="mt-1">Transitioning from GPS outdoors to Bluetooth Beacons & visual positioning
+                                indoors to maintain tracking on multi-floor buildings.</p>
+                        </div>
+                        <div class="ar-glass-card fade-up delay-1">
+                            <h3 class="text-red">Minimal HUD Interface</h3>
+                            <p class="mt-1">A transparent, non-obstructive heads-up display showing ETA, distance, and
+                                immediate upcoming turns without cluttering the screen.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 12. UI DESIGN & SCREENS -->
+            <section class="ar-section ar-ui-screens">
+                <div class="container">
+                    <h2 class="ar-section-title text-center fade-up">Interface Designs</h2>
+                    <div class="ar-grid-auto mt-4">
+                        <div class="ar-screen-wrapper fade-up">
+                            <img src="images/SU SCREEN 1.png" alt="Screen 1" class="ar-img rounded"
+                                style="box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid var(--ar-glass-border);">
+                        </div>
+                        <div class="ar-screen-wrapper fade-up delay-1">
+                            <img src="images/SU SCREEN 4.png" alt="Screen 2" class="ar-img rounded"
+                                style="box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid var(--ar-glass-border);">
+                        </div>
+                        <div class="ar-screen-wrapper fade-up delay-2">
+                            <img src="images/SU SCREEN 3.png" alt="Screen 3" class="ar-img rounded"
+                                style="box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid var(--ar-glass-border);">
+                        </div>
+                        <div class="ar-screen-wrapper fade-up delay-3">
+                            <img src="images/SU SCREEN 2.png" alt="Screen 4" class="ar-img rounded"
+                                style="box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid var(--ar-glass-border);">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. USER FLOW -->
+            <section class="ar-section ar-diagram">
+                <div class="container text-center">
+                    <h2 class="ar-section-title fade-up">User Flow</h2>
+                    <div class="ar-flow-diagram mt-4 fade-up delay-1">
+                        <div class="flow-pill">Campus Entry</div>
+                        <div class="flow-arr">↓</div>
+                        <div class="flow-pill red">Initialize AR Camera View</div>
+                        <div class="flow-arr">↓</div>
+                        <div class="flow-pill">Input Destination</div>
+                        <div class="flow-arr">↓</div>
+                        <div class="flow-pill red">Visual Anchoring & Path Render</div>
+                        <div class="flow-arr">↓</div>
+                        <div class="flow-pill">Follow Holographic Trail</div>
+                        <div class="flow-arr">↓</div>
+                        <div class="flow-pill">Arrival & Conclusion</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. FINAL OUTCOME -->
+            <section class="ar-section ar-outcome">
+                <div class="container text-center">
+                    <h2 class="ar-section-title fade-up">Final Outcome</h2>
+                    <p class="ar-lead-text mt-2 fade-up delay-1">Implementing AR Wayfinding shifts the university
+                        infrastructure into the future. It drastically reduces traversal latency, eradicates systematic
+                        orientation anxiety, and provides a uniquely premium, highly accessible technological experience
+                        for every visitor.</p>
+                </div>
+            </section>
+
+            <footer class="ar-footer">
+                <div class="container text-center">
+                    <p>&copy; 2026 Akshat Gupta. AR Product Concept Portfolio.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="ar-main.js"></script>
+</body>
+
+</html>

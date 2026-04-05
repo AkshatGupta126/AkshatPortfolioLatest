@@ -224,7 +224,7 @@ a { text-decoration: none; color: inherit; }
 
 .x-lightbox-nav:hover {
   background: var(--x-purple-1);
-  transform: scale(1.1);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .x-lightbox-nav.prev { left: 40px; }

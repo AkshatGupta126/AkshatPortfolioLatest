@@ -142,7 +142,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 2. Overview */
 .ar-image-block { position: relative; }
-.ar-img { width: 100%; height: auto; display: block; filter: contrast(1.1) saturate(0.8); }
+.ar-img { width: 100%; height: auto; object-fit: cover; display: block; filter: contrast(1.1) saturate(0.8); }
 .ar-floating-card { position: absolute; bottom: 1.5rem; right: -1.5rem; background: rgba(15,17,21,0.9); border: 1px solid var(--ar-grey); padding: 0.8rem 1.5rem; border-radius: 30px; font-family: monospace; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; backdrop-filter: blur(5px);}
 .ar-dot-indicator.pulse { width: 8px; height: 8px; background: var(--ar-red); border-radius: 50%; box-shadow: 0 0 10px var(--ar-red); animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
 @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }

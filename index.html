@@ -33,7 +33,9 @@
     <!-- Navigation -->
     <nav class="navbar">
         <a href="#home" class="logo">
-            <img src="images/Logo.png.png" alt="Akshat Gupta Logo" class="nav-logo" style="width: 70px; height: 70px;">
+            <img src="images/Logo.png.png" alt="Akshat Gupta Logo" class="nav-logo"
+                style="width: 70px; height: 70px; user-select: none; -webkit-user-drag: none;" draggable="false"
+                oncontextmenu="return false;">
         </a>
         <!-- Hamburger Menu for Mobile -->
         <div class="menu-toggle" id="mobile-menu">
@@ -80,7 +82,8 @@
                     <div class="about-image-wrapper">
                         <!-- Lazy loaded high quality tech placeholder -->
                         <img src="./images/About Me image.png" alt="Akshat Profile Placeholder"
-                            class="parallax-img img-cover" loading="lazy">
+                            class="parallax-img img-cover" loading="lazy" draggable="false"
+                            oncontextmenu="return false;" style="user-select: none; -webkit-user-drag: none;">
                         <div class="glass-card overlay-card">Designing the Future</div>
                     </div>
                 </div>
@@ -148,12 +151,12 @@
                         <div class="timeline">
                             <div class="timeline-line"></div>
 
-                            <!-- 1. Xebia -->
+                            <!-- 1. Design Work -->
                             <div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="timeline-content glass-panel premium-glow">
                                     <h3 class="job-title">UI/UX Design Intern</h3>
-                                    <span class="company">Xebia (Global IT Consulting MNC)</span>
+                                    <span class="company">Design Work</span>
                                     <span class="duration">January 2026 – Present</span>
                                     <ul class="exp-details">
                                         <li>Working on project presentations and creating engaging visuals.</li>
@@ -234,8 +237,8 @@
                                     alt="Project 1">
                             </div>
                             <div class="project-info glass-panel">
-                                <h3 style="color: black;">Reshaping Waste Workers Livelihoods in Seemapuri</h3>
-                                <p style="color: black;">A design initiative for improving waste management systems,
+                                <h3>Reshaping Waste Workers Livelihoods in Seemapuri</h3>
+                                <p>A design initiative for improving waste management systems,
                                     awareness, and
                                     livelihoods in Seemapuri.</p>
                                 <a href="seemapuri-project.html" class="btn-outline">View Project</a>
@@ -257,13 +260,25 @@
 
                         <div class="project-card">
                             <div class="img-container">
-                                <img src="./images/Brochurure Projects Cover.png"
-                                    class="img-cover" loading="lazy" alt="Project 3">
+                                <img src="./images/Graphic Designer.webp" class="img-cover" loading="lazy"
+                                    alt="Project 3">
                             </div>
                             <div class="project-info glass-panel">
-                                <h3 style="color: black;">Brochures (Graphic Designing)</h3>
-                                <p style="color: black;">A showcase of brochures designed to communicate ideas visually.</p>
-                                <a href="xebia-brochures.html" class="btn-outline" style="color: black; border-color: black;">View Brochures</a>
+                                <h3>Graphic Designing Work</h3>
+                                <p>A showcase of graphic design work to communicate ideas
+                                    visually.</p>
+                                <a href="graphic-designing-work.html" class="btn-outline">View Work</a>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="img-container">
+                                <!-- Temporary placeholder image -->
+                                <img src="./images/Editing Cover.avif" class="img-cover" loading="lazy" alt="Project 4">
+                            </div>
+                            <div class="project-info glass-panel">
+                                <h3>Video Editing Work</h3>
+                                <p>A curation of professional video editing and seamless motion graphic sequences.</p>
+                                <a href="#" class="btn-outline">Coming Soon</a>
                             </div>
                         </div>
                     </div>
@@ -274,35 +289,54 @@
             <section class="visits" id="visits">
                 <div class="container text-center visits-intro" style="padding-bottom: 2rem;">
                     <h2 class="section-title">A Global Perspective</h2>
-                    <p class="section-subtitle text-center" style="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">
-                        Traveling across the world has profoundly shaped my creative vision. Experiencing diverse cultures, architectures, and lifestyles has broadened my perspective, fuels my curiosity, and deeply inspires my design approach.
+                    <p class="section-subtitle text-center"
+                        style="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">
+                        Traveling across the world has profoundly shaped my creative vision. Experiencing diverse
+                        cultures, architectures, and lifestyles has broadened my perspective, fuels my curiosity, and
+                        deeply inspires my design approach.
                     </p>
-                    <p class="countries-list" style="margin-top: 1.5rem; color: var(--text-main); font-size: 0.82rem; letter-spacing: 0.5px; font-weight: 300; line-height: 1.8;">
-                        <strong>Countries Explored by Age 21:</strong><br>
-                        Austria • Belgium • Bhutan • France • Germany • Italy • Japan • Malaysia • Mauritius • Netherlands • Singapore • South Korea • Switzerland • Thailand • U.A.E. • U.K. • U.S.A.
+                    <p class="countries-list"
+                        style="margin-top: 1.5rem; color: var(--text-main); font-size: 0.82rem; letter-spacing: 0.5px; font-weight: 300; line-height: 1.8;">
+                        <strong>Countries Explored:</strong><br>
+                        Austria • Belgium • Bhutan • France • Germany • Italy • Japan • Malaysia • Mauritius •
+                        Netherlands • Singapore • South Korea • Switzerland • Thailand • U.A.E. • U.K. • U.S.A.
                     </p>
-                    <hr style="width: 100px; margin: 2rem auto; border: none; height: 1px; background: var(--accent-pink);">
-                    
-                    <h3 style="font-family: var(--font-primary); font-size: 1.8rem; margin-bottom: 0.8rem;">The Epitome of Futuristic Inspiration</h3>
-                    <p class="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1.05rem; line-height: 1.6;">
-                        While every destination broadened my horizons, <strong>South Korea</strong> and <strong>Japan</strong> captured my imagination like nowhere else. Their unparalleled fusion of hyper-advanced technology and cutting-edge digital environments profoundly shaped my tech-driven design aesthetic. Japan, in particular, stands out as my absolute favorite—a hyper-futuristic world whose relentless innovation constantly inspires how I approach digital interfaces today.
-                    </p>
+                    <hr
+                        style="width: 100px; margin: 2rem auto; border: none; height: 1px; background: var(--accent-purple-light);">
+
+                    <!-- Removed long intro description per request -->
                 </div>
-                
-                <div class="visit-panel">
-                    <img src="images/Seoul DDP.jpg"
-                        alt="Seoul DDP" class="visit-img img-cover" loading="lazy">
-                    <div class="visit-content">
-                        <h2 class="city-title">Seoul, DDP</h2>
-                        <p>Dongdaemun Design Plaza (DDP) in Seoul is a global hub for design and innovation, designed by Zaha Hadid. It features futuristic architecture and hosts exhibitions, fashion shows, and design events that inspire forward-thinking creativity.</p>
+
+                <div class="visit-gallery-wrapper" style="position: relative;">
+                    <div class="visit-panel">
+                        <!-- Ribbon Overlay -->
+                        <div class="flap-ribbon glass-panel">
+                            <h3 style="font-family: var(--font-primary); font-size: 1.4rem; margin-bottom: 0.8rem;">Core
+                                Inspirations</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Places
+                                that profoundly impacted my creative vision and futuristic design aesthetic.</p>
+                        </div>
+                        <img src="images/Seoul DDP.jpg" alt="Seoul DDP" class="visit-img img-cover" loading="lazy">
+                        <div class="visit-content">
+                            <h2 class="city-title">Seoul, DDP</h2>
+                            <p>Dongdaemun Design Plaza (DDP) in Seoul is a global hub for design and innovation,
+                                designed by
+                                Zaha Hadid. It features futuristic architecture and hosts exhibitions, fashion shows,
+                                and
+                                design events that inspire forward-thinking creativity.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="visit-panel">
-                    <img src="./images/Teamlabs Tokyo.jpg"
-                        alt="Tokyo TeamLab" class="visit-img img-cover" loading="lazy">
-                    <div class="visit-content">
-                        <h2 class="city-title">Tokyo, TeamLab</h2>
-                        <p>TeamLab Planets Tokyo is an immersive digital art museum where visitors walk through water and interact with light and sound. It breaks boundaries between art and audience, creating unforgettable emotional experiences.</p>
+                    <div class="visit-panel">
+                        <img src="./images/Teamlabs Tokyo.jpg" alt="Tokyo TeamLab" class="visit-img img-cover"
+                            loading="lazy">
+                        <div class="visit-content">
+                            <h2 class="city-title">Tokyo, TeamLab</h2>
+                            <p>TeamLab Planets Tokyo is an immersive digital art museum where visitors walk through
+                                water
+                                and interact with light and sound. It breaks boundaries between art and audience,
+                                creating
+                                unforgettable emotional experiences.</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -316,8 +350,10 @@
                     <a href="mailto:akshatcore@gmail.com" class="main-email">akshatcore@gmail.com</a>
 
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/akshat-gupta-07210a307" target="_blank" class="social-icon">LinkedIn</a>
-                        <a href="https://www.instagram.com/its.akushatto2.0/" target="_blank" class="social-icon">Instagram</a>
+                        <a href="https://www.linkedin.com/in/akshat-gupta-07210a307" target="_blank"
+                            class="social-icon">LinkedIn</a>
+                        <a href="https://www.instagram.com/its.akushatto2.0/" target="_blank"
+                            class="social-icon">Instagram</a>
                         <a href="https://wa.me/447452327182" target="_blank" class="social-icon">WhatsApp</a>
                     </div>
                 </div>

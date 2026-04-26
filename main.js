@@ -1,3 +1,11 @@
+// Animated Browser Title
+const tabTitles = ["Akshat Gupta | UI/UX Designer", "Akshat Gupta | Graphic Designer", "Akshat Gupta | Video Editor"];
+let tabTitleIndex = 0;
+setInterval(() => {
+    document.title = tabTitles[tabTitleIndex];
+    tabTitleIndex = (tabTitleIndex + 1) % tabTitles.length;
+}, 2500);
+
 // Verify GSAP and Lenis are loaded
 if (typeof gsap === 'undefined' || typeof Lenis === 'undefined') {
     console.error("GSAP or Lenis is not loaded!");
@@ -143,6 +151,26 @@ let mm = gsap.matchMedia();
 // --------------------------------------------------
 // GLOBAL ANIMATIONS (Run on all devices)
 // --------------------------------------------------
+
+// Scroll-based background transitions
+const bgTransitions = [
+    { trigger: '.hero', color1: '#0F0F14', color2: '#150027' },
+    { trigger: '.about', color1: '#120020', color2: '#1a0033' },
+    { trigger: '.projects', color1: '#0c0c10', color2: '#15151e' },
+    { trigger: '.contact', color1: '#150027', color2: '#0F0F14' }
+];
+
+bgTransitions.forEach(st => {
+    if(document.querySelector(st.trigger)) {
+        ScrollTrigger.create({
+            trigger: st.trigger,
+            start: 'top 50%',
+            end: 'bottom 50%',
+            onEnter: () => gsap.to('body', { background: `linear-gradient(135deg, ${st.color1} 0%, ${st.color2} 100%)`, duration: 1 }),
+            onEnterBack: () => gsap.to('body', { background: `linear-gradient(135deg, ${st.color1} 0%, ${st.color2} 100%)`, duration: 1 })
+        });
+    }
+});
 
 // Skills Fill Animation
 const skillCards = gsap.utils.toArray('.skill-card');

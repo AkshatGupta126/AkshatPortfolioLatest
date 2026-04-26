@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Brochures | UX Case Study Showcase</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="graphic-style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="x-theme">
+    <!-- Custom Cursor -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress-bar x-progress-bar" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="x-navbar">
+        <a href="index.html" class="x-back-link">
+            <span>←</span> Back to Portfolio
+        </a>
+    </nav>
+
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- 1. HERO SECTION -->
+            <section class="x-section x-hero" id="x-hero">
+                <div class="x-hero-bg">
+                    <div class="x-gradient-blob x-blob-1"></div>
+                    <div class="x-gradient-blob x-blob-2"></div>
+                </div>
+                <div class="container x-hero-inner text-center">
+                    <div class="x-badge mb-1 fade-up">Design Archive</div>
+                    <h1 class="x-hero-title fade-up delay-1"> Brochure Designs</h1>
+                    <p class="x-hero-lead fade-up delay-2">Showcasing real-world consulting and design work</p>
+            </section>
+
+            <!-- 2. PROJECT GRID -->
+            <section class="x-section x-main-grid">
+                <div class="container">
+
+                    <!-- Filters Removed as requested -->
+
+                    <div class="x-grid mt-4" id="projectGrid">
+
+                        <div class="x-message-box fade-up text-center" style="grid-column: 1 / -1; padding: 4rem 2rem; background: var(--x-glass-bg); border: 1px dashed var(--x-glass-border); border-radius: 16px;">
+                            <h3 style="color: var(--x-grey-light); font-weight: 400; font-family: monospace; letter-spacing: 1px; margin: 0;">Work will be updated soon</h3>
+                        </div>
+                        
+                        <div style="display: none;" id="hidden-cards-wrapper">
+                        <!-- Card 1 -->
+                        <div class="x-card fade-up" data-category="agile" role="button"
+                            data-images="images/B 4.1.png,images/B4.2.png,images/B4.3.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B 4.1.png" alt="Heritage Bank Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Agile</span>
+                                <h3>Leading Dubai's Heritage Bank into the Agile Era</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Learned how to condense complex corporate agile frameworks into easily scannable
+                                        visual structures, balancing strict brand guidelines with dynamic layouts.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="x-card fade-up delay-1" data-category="consulting" role="button"
+                            data-images="images/B2.1.png, images/B2.2.png, images/B2.3.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B2.1.png"
+                                    alt="European Retail Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>Scaled Delivery Excellence for Premium European Retail</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Focused on highlighting metrics and delivery KPIs. Feedback emphasized making the
+                                        numerical impact the core visual hook rather than heavy text blocks.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="x-card fade-up delay-2" data-category="consulting" role="button"
+                            data-images="images/B 3.1.png, images/B 3.2.png, images/B 3.3.png">
+                            <div class="x-card-thumb">
+                                <img src="./images/B 3.1.png"
+                                    alt="Streaming Era Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>Engineering Velocity for the Streaming Era</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Explored modern, high-velocity design patterns appropriate for tech-first
+                                        entertainment giants, utilizing bolder color hierarchies.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="x-card fade-up" data-category="consulting" role="button"
+                            data-images="images/B 1.1.png,images/B 1.2.png,images/B1.3.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B 1.1.png"
+                                    alt="Sustainable Delivery Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>The Sustainable Delivery Initiative</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Implemented eco-conscious, minimalist visual themes to communicate sustainability
+                                        without compromising enterprise professionalism.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="x-card fade-up delay-1" data-category="agile" role="button"
+                            data-images="images/B5.1.png, images/B5.2.png, images/B5.3.png">
+                            <div class="x-card-thumb">
+                                <img src="./images/B5.1.png"
+                                    alt="Insurance Delivery Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Agile</span>
+                                <h3>Transforming Insurance Delivery: An Agile Case Study</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Mastered Figma grid structures for dense financial information, ensuring
+                                        long-form case studies remained deeply engaging.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="x-card fade-up delay-2" data-category="consulting" role="button"
+                            data-images="./images/B6.1.png, ./images/B6.2.png, ./images/B6.3.png">
+                            <div class="x-card-thumb">
+                                <img src="./images/B6.1.png"
+                                    alt="U.S. Airline Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>Transforming Product Culture at a Major U.S. Airline</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Iterated significantly on typography hierarchy to bridge the gap between rigorous
+                                        consulting frameworks and approachable product storytelling.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 7 -->
+                        <div class="x-card fade-up" data-category="ai" role="button"
+                            data-images="./images/B7.1.png, ./images/B7.2.png, ./images/B7.3.png">
+                            <div class="x-card-thumb">
+                                <img src="./images/B7.1.png"
+                                    alt="SILAKBO AI Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">AI</span>
+                                <h3>Project SILAKBO: AI Readiness Case Study</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Utilized futuristic and sharp design motifs to visually represent AI readiness,
+                                        focusing on contrast and neon subtleties based on executive feedback.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 8 -->
+                        <div class="x-card fade-up delay-1" data-category="ai" role="button"
+                            data-images="./images/B8.1.png, ./images/B8.2.png, ./images/B8.3.png">
+                            <div class="x-card-thumb">
+                                <img src="./images/B8.1.png"
+                                    alt="AI Readiness Scan Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">AI</span>
+                                <h3>AI Readiness & Maturity Scan</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Streamlined infographic design to represent complex maturity scales. Refined the
+                                        layout to keep diagnostic readouts accessible to business leaders.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 9 -->
+                        <div class="x-card fade-up delay-2" data-category="consulting" role="button"
+                            data-images="images/B9.1.png, images/B9.2.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B9.1.png"
+                                    alt="Transforming Insurance Delivery Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>Transforming Insurance Delivery</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Showcasing enterprise agility and digital strategy for modern insurance delivery models.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 10 -->
+                        <div class="x-card fade-up" data-category="ai" role="button"
+                            data-images="images/B10.1.png, images/B10.2.png, images/B10.3.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B10.1.png"
+                                    alt="Impact of Gen AI Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">AI</span>
+                                <h3>Impact of Gen AI on Financial Services</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Highlighting quantitative and qualitative impact metrics of generative AI in finance.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 11 -->
+                        <div class="x-card fade-up delay-1" data-category="ai" role="button"
+                            data-images="images/B11.1.png">
+                            <div class="x-card-thumb">
+                                <img src="./images/B11.1.png"
+                                    alt="AI-Driven Agile Transformation Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">AI</span>
+                                <h3>AI-Driven Agile Transformation</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Merging agile delivery methodologies with AI capabilities to accelerate technical velocity.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 12 -->
+                        <div class="x-card fade-up delay-2" data-category="ai" role="button"
+                            data-images="images/B12.1.png, images/B12.2.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B12.1.png"
+                                    alt="AI Assessment Framework Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">AI</span>
+                                <h3>AI Assessment Framework</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Presenting a diagnostic toolkit for evaluating enterprise AI readiness and strategy.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 13 -->
+                        <div class="x-card fade-up" data-category="consulting" role="button"
+                            data-images="images/B13.1.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B13.1.png"
+                                    alt="CXO Consulting Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>CXO Consulting</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Designing executive summaries and high-level strategic playbooks for C-suite stakeholders.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 14 -->
+                        <div class="x-card fade-up delay-1" data-category="consulting" role="button"
+                            data-images="images/B14.1.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B14.1.png"
+                                    alt="Lean Process Consulting Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>Lean Process Consulting</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Refining complex operational matrices into accessible, streamlined process maps.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 15 -->
+                        <div class="x-card fade-up delay-2" data-category="agile" role="button"
+                            data-images="images/B15.1.png, images/B15.2.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B15.1.png"
+                                    alt="XPDS: Intelligent Product Ideation Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Agile</span>
+                                <h3>XPDS: Intelligent Product Ideation</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Communicating innovative product design strategies and agile feature discovery tracks.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 16 -->
+                        <div class="x-card fade-up" data-category="consulting" role="button"
+                            data-images="images/B16.1.png">
+                            <div class="x-card-thumb">
+                                <img src="images/B16.1.png"
+                                    alt="Navigating the Pitfalls Thumbnail" class="parallax-img">
+                                <div class="x-hover-overlay"><span>View Brochure</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Consulting</span>
+                                <h3>Navigating the Pitfalls</h3>
+                                <div class="x-feedback-section">
+                                    <strong>Learnings & Feedback:</strong>
+                                    <p>Visualizing risk management strategies and mitigation plans through intuitive graphics.</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+
+            <footer class="x-footer">
+                <div class="container text-center">
+                    <p>&copy; 2026 Akshat Gupta. Graphic Designing Work.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Lightbox Overlay -->
+    <div class="x-lightbox" id="brochureLightbox">
+        <button class="x-lightbox-close" id="lightboxClose">✕</button>
+        <button class="x-lightbox-nav prev" id="lightboxPrev">←</button>
+        <div class="x-lightbox-content">
+            <img src="" id="lightboxImage" alt="Brochure Preview">
+            <div class="x-lightbox-counter" id="lightboxCounter">1 / 1</div>
+        </div>
+        <button class="x-lightbox-nav next" id="lightboxNext">→</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <script src="graphic-main.js"></script>
+</body>
+
+</html>

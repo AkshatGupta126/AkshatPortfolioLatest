@@ -7,9 +7,11 @@
   --bg-color-alt: #150027;
   
   --accent-purple: #621563;
+  --accent-purple-light: #831B84;
   --accent-pink: #E331D0;
-  --text-main: #E3E3E5;
-  --text-muted: rgba(227, 227, 229, 0.7);
+  --text-main: #FFFFFF;
+  --text-muted: #C8C8CD;
+  --neutral-grey: #78787D;
 
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.03);
@@ -27,6 +29,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
 }
 
 html, body {
@@ -66,8 +75,9 @@ ul {
 .text-center { text-align: center; }
 
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  object-fit: cover;
   display: block;
 }
 
@@ -111,13 +121,14 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
     display: block;
     position: fixed;
     top: 0; left: 0;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(227, 49, 208, 0.15) 0%, rgba(0,0,0,0) 70%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(98, 21, 99, 0.25) 0%, rgba(0,0,0,0) 70%);
     border-radius: 50%;
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 9999;
     mix-blend-mode: screen;
+    transition: background 0.3s ease;
   }
 }
 
@@ -126,7 +137,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   position: fixed;
   top: 0; left: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light));
   width: 0%;
   z-index: 10000;
 }
@@ -153,7 +164,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 
 .loading-bar .fill {
   width: 0%; height: 100%;
-  background: var(--accent-pink);
+  background: var(--accent-purple-light);
 }
 
 /* Glass Panel */
@@ -174,8 +185,8 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   }
   .glass-panel:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 45px rgba(227, 49, 208, 0.1);
-    border-color: rgba(227, 49, 208, 0.3);
+    box-shadow: 0 15px 45px rgba(98, 21, 99, 0.15);
+    border-color: rgba(98, 21, 99, 0.3);
   }
 }
 
@@ -185,7 +196,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   content: '';
   position: absolute;
   inset: -1px;
-  background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+  background: linear-gradient(135deg, var(--accent-purple-light), var(--accent-purple));
   z-index: -1;
   border-radius: 17px;
   opacity: 0.3;
@@ -290,7 +301,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
     position: absolute;
     bottom: -4px; left: 0;
     width: 0%; height: 2px;
-    background: var(--accent-pink);
+    background: var(--accent-purple-light);
     transition: width 0.3s ease;
   }
   .nav-links a:hover::after { width: 100%; }
@@ -331,7 +342,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 
 .shape-2 {
   width: 70vw; height: 70vw;
-  background: var(--accent-pink);
+  background: var(--accent-purple-light);
   bottom: -20%; left: -30%;
   animation-delay: -5s;
 }
@@ -363,7 +374,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   font-size: clamp(0.9rem, 1.5vw, 1.5rem);
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: var(--accent-pink);
+  color: var(--text-muted);
   margin-bottom: 1rem;
 }
 
@@ -398,7 +409,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   .cta-button { padding: 1rem 2.5rem; }
   .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(227, 49, 208, 0.4);
+    box-shadow: 0 10px 20px rgba(98, 21, 99, 0.4);
   }
 }
 
@@ -434,7 +445,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 
 .overlay-card {
   position: absolute;
-  bottom: 1.5rem; left: 1.5rem;
+  bottom: 1.5rem; right: 1.5rem;
   padding: 0.8rem 1.5rem;
   font-family: var(--font-primary);
   font-weight: 500;
@@ -447,7 +458,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
     gap: 4rem;
   }
   .about-image-wrapper { aspect-ratio: 4/5; }
-  .overlay-card { bottom: 2rem; left: 2rem; padding: 1rem 2rem; font-size: 1rem; }
+  .overlay-card { bottom: 2rem; right: 2rem; padding: 1rem 2rem; font-size: 1rem; }
 }
 
 /* =========================================================================
@@ -489,7 +500,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 
 .level-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light));
   width: 0%;
   border-radius: 3px;
 }
@@ -498,8 +509,8 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   .skills-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
   .skill-card { padding: 1.5rem; border-radius: 16px; }
   .skill-card:hover {
-    background: rgba(227, 49, 208, 0.05);
-    border-color: rgba(227, 49, 208, 0.4);
+    background: rgba(98, 21, 99, 0.05);
+    border-color: rgba(98, 21, 99, 0.4);
     transform: translateY(-5px);
   }
 }
@@ -516,7 +527,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 .exp-header { margin-bottom: 1rem; }
 .exp-header h3 { font-size: 1.2rem; }
 .exp-header .company {
-  display: block; color: var(--accent-pink); margin-top: 0.3rem;
+  display: block; color: var(--accent-purple-light); margin-top: 0.3rem;
 }
 .exp-header .duration { font-size: 0.85rem; color: var(--text-muted); }
 
@@ -551,8 +562,8 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   left: -1.82rem; top: 1.2rem;
   width: 10px; height: 10px;
   border-radius: 50%;
-  background: var(--accent-pink);
-  box-shadow: 0 0 10px var(--accent-pink);
+  background: var(--accent-purple-light);
+  box-shadow: 0 0 10px var(--accent-purple-light);
 }
 .timeline-content h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
 .timeline-content .deg { color: var(--text-muted); font-size: 0.95rem; }
@@ -677,9 +688,13 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 }
 .visit-panel {
   position: relative;
-  height: 60vh; /* Shorter on mobile */
+  height: 80vh; /* Taller on mobile to avoid UI overlaps */
   overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-end; /* Put text at bottom on mobile to avoid ribbon overlap */
+  flex-direction: column;
+  padding-bottom: 2rem;
 }
 .visit-img {
   position: absolute; top: 0; left: 0;
@@ -689,13 +704,13 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   filter: brightness(0.6);
 }
 .visit-content {
-  position: relative; z-index: 1; text-align: center; padding: 0 1rem;
+  position: relative; z-index: 1; text-align: center; padding: 0 1.5rem;
 }
 .visit-content p {
   max-width: 650px;
   margin: 1rem auto 0;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.5;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 .city-title {
@@ -705,8 +720,45 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 }
 
 @media (min-width: 900px) {
-  .visit-panel { height: 100vh; }
+  .visit-panel { 
+    height: 100vh; 
+    justify-content: center; 
+    padding-bottom: 0; 
+  }
 }
+
+.visit-gallery-wrapper {
+  position: relative;
+  display: block;
+}
+
+.flap-ribbon {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  z-index: 10;
+  max-width: 85%;
+  background: linear-gradient(135deg, rgba(21, 0, 39, 0.9), rgba(98, 21, 99, 0.5));
+  border: 1px solid var(--accent-purple-light);
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+  padding: 1rem;
+  box-shadow: 10px 15px 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+@media (min-width: 900px) {
+  .flap-ribbon {
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    max-width: 350px;
+    padding: 2rem;
+  }
+}
+
+
 
 /* =========================================================================
    CONTACT SECTION
@@ -721,7 +773,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   font-family: var(--font-primary);
   font-size: clamp(1.5rem, 4vw, 4rem);
   font-weight: 700;
-  background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
@@ -740,7 +792,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
 @media (min-width: 900px) {
   .social-links { gap: 2rem; }
   .social-icon { font-size: 1.1rem; opacity: 0.7; }
-  .social-icon:hover { opacity: 1; color: var(--accent-pink); transform: translateY(-3px); }
+  .social-icon:hover { opacity: 1; color: var(--accent-purple-light); transform: translateY(-3px); }
 }
 
 footer { border-top: 1px solid rgba(255,255,255,0.05); }

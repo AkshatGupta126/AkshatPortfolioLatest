@@ -615,7 +615,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
   padding: 1rem;
 }
 .project-info h3 { font-size: 1.1rem; }
-.project-info p { font-size: 0.9rem; margin-top: 0.3rem; }
+.project-info p { display: none; } /* Hidden on mobile to save space */
 
 .btn-outline {
   display: inline-block;
@@ -663,7 +663,7 @@ html.lenis, html.lenis body { height: auto; width: 100%; }
     transition: all 0.5s ease;
   }
   .project-info h3 { font-size: 1.5rem; }
-  .project-info p { font-size: 1rem; }
+  .project-info p { display: block; font-size: 1rem; margin-top: 0.5rem; }
   .btn-outline { padding: 0.5rem 1.5rem; font-size: 0.9rem; }
   .btn-outline:hover { background: var(--text-main); color: var(--bg-color); }
   

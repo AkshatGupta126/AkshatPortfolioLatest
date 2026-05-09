@@ -275,8 +275,15 @@ body.lightbox-open .cursor-glow {
 /* =========================================================================
    CUSTOM VIDEO PLAYER UI
    ========================================================================= */
-#youtubePlayer {
+#youtubePlayer, #vimeoPlayer,
+#youtubePlayer iframe, #vimeoPlayer iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     pointer-events: none !important;
+    border-radius: 12px;
 }
 
 .x-video-wrapper {

@@ -105,6 +105,8 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 let ytPlayer;
 let isPlayerReady = false;
 let progressInterval;
+let vimeoPlayerInstance = null;
+let activePlayer = 'none';
 
 window.onYouTubeIframeAPIReady = function() {
     ytPlayer = new YT.Player('youtubePlayer', {
@@ -133,6 +135,7 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
+    if (activePlayer !== 'youtube') return;
     if (event.data === YT.PlayerState.PLAYING) {
         if(playIcon) playIcon.style.display = 'none';
         if(pauseIcon) pauseIcon.style.display = 'block';
@@ -152,7 +155,7 @@ const formatTime = (timeInSeconds) => {
 };
 
 function updateProgressBar() {
-    if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+    if (activePlayer !== 'youtube' || !ytPlayer || !ytPlayer.getCurrentTime) return;
     const currentTime = ytPlayer.getCurrentTime();
     const duration = ytPlayer.getDuration();
     if (duration > 0) {
@@ -172,23 +175,36 @@ function stopProgressLoop() {
 }
 
 const togglePlay = () => {
-    if (!ytPlayer || !isPlayerReady) return;
-    const state = ytPlayer.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) {
-        ytPlayer.pauseVideo();
-    } else {
-        ytPlayer.playVideo();
+    if (activePlayer === 'youtube') {
+        if (!ytPlayer || !isPlayerReady) return;
+        const state = ytPlayer.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
+        else ytPlayer.playVideo();
+    } else if (activePlayer === 'vimeo') {
+        if (!vimeoPlayerInstance) return;
+        vimeoPlayerInstance.getPaused().then(paused => {
+            if(paused) vimeoPlayerInstance.play();
+            else vimeoPlayerInstance.pause();
+        });
     }
 };
 
 const scrub = (e) => {
-    if (!ytPlayer || !isPlayerReady) return;
-    const duration = ytPlayer.getDuration();
-    if (!duration) return;
     const rect = progressContainer.getBoundingClientRect();
     let pos = (e.clientX - rect.left) / rect.width;
     pos = Math.max(0, Math.min(1, pos));
-    ytPlayer.seekTo(pos * duration, true);
+    
+    if (activePlayer === 'youtube') {
+        if (!ytPlayer || !isPlayerReady) return;
+        const duration = ytPlayer.getDuration();
+        if (!duration) return;
+        ytPlayer.seekTo(pos * duration, true);
+    } else if (activePlayer === 'vimeo') {
+        if (!vimeoPlayerInstance) return;
+        vimeoPlayerInstance.getDuration().then(duration => {
+            vimeoPlayerInstance.setCurrentTime(pos * duration);
+        });
+    }
 };
 
 const toggleFullscreen = () => {
@@ -277,9 +293,15 @@ document.addEventListener('click', (e) => {
 
 speedOpts.forEach(opt => {
     opt.addEventListener('click', () => {
-        if (!ytPlayer || !isPlayerReady) return;
         const speed = parseFloat(opt.getAttribute('data-speed'));
-        ytPlayer.setPlaybackRate(speed);
+        
+        if (activePlayer === 'youtube') {
+            if (!ytPlayer || !isPlayerReady) return;
+            ytPlayer.setPlaybackRate(speed);
+        } else if (activePlayer === 'vimeo') {
+            if (!vimeoPlayerInstance) return;
+            vimeoPlayerInstance.setPlaybackRate(speed);
+        }
         
         speedOpts.forEach(o => o.classList.remove('active'));
         opt.classList.add('active');
@@ -289,9 +311,16 @@ speedOpts.forEach(opt => {
 
 qualityOpts.forEach(opt => {
     opt.addEventListener('click', () => {
-        if (!ytPlayer || !isPlayerReady) return;
         const quality = opt.getAttribute('data-quality');
-        ytPlayer.setPlaybackQuality(quality);
+        
+        if (activePlayer === 'youtube') {
+            if (!ytPlayer || !isPlayerReady) return;
+            ytPlayer.setPlaybackQuality(quality);
+        } else if (activePlayer === 'vimeo') {
+            // Vimeo quality via API requires Pro, but we'll try standard method if available, usually ignored
+            if (!vimeoPlayerInstance) return;
+            vimeoPlayerInstance.setQuality(quality).catch(e => console.log('Quality change not supported by Vimeo plan'));
+        }
         
         qualityOpts.forEach(o => o.classList.remove('active'));
         opt.classList.add('active');
@@ -304,18 +333,59 @@ if(fullscreenBtn) fullscreenBtn.addEventListener('click', toggleFullscreen);
 cards.forEach(card => {
     card.addEventListener('click', () => {
         const youtubeId = card.getAttribute('data-youtube-id');
-        if (!youtubeId) return;
+        const vimeoId = card.getAttribute('data-vimeo-video-id');
+        
+        document.getElementById('youtubePlayer').style.display = 'none';
+        document.getElementById('vimeoPlayer').style.display = 'none';
 
-        if (isPlayerReady && ytPlayer) {
-            ytPlayer.loadVideoById(youtubeId);
-        } else if (!isPlayerReady) {
-            // Fallback in case API isn't ready
-            const checkReady = setInterval(() => {
-                if (isPlayerReady && ytPlayer) {
-                    ytPlayer.loadVideoById(youtubeId);
-                    clearInterval(checkReady);
-                }
-            }, 100);
+        if (youtubeId) {
+            document.getElementById('youtubePlayer').style.display = 'block';
+            activePlayer = 'youtube';
+            if (isPlayerReady && ytPlayer) {
+                ytPlayer.loadVideoById(youtubeId);
+            } else if (!isPlayerReady) {
+                const checkReady = setInterval(() => {
+                    if (isPlayerReady && ytPlayer) {
+                        ytPlayer.loadVideoById(youtubeId);
+                        clearInterval(checkReady);
+                    }
+                }, 100);
+            }
+        } else if (vimeoId) {
+            document.getElementById('vimeoPlayer').style.display = 'block';
+            activePlayer = 'vimeo';
+            if (!vimeoPlayerInstance && typeof Vimeo !== 'undefined') {
+                vimeoPlayerInstance = new Vimeo.Player('vimeoPlayer', {
+                    id: vimeoId,
+                    controls: false,
+                    autoplay: true
+                });
+                
+                vimeoPlayerInstance.ready().then(() => {
+                    vimeoPlayerInstance.play().catch(err => console.log("Vimeo autoplay blocked by browser: ", err));
+                });
+                
+                vimeoPlayerInstance.on('play', () => {
+                    if(playIcon) playIcon.style.display = 'none';
+                    if(pauseIcon) pauseIcon.style.display = 'block';
+                });
+                vimeoPlayerInstance.on('pause', () => {
+                    if(playIcon) playIcon.style.display = 'block';
+                    if(pauseIcon) pauseIcon.style.display = 'none';
+                });
+                vimeoPlayerInstance.on('timeupdate', (data) => {
+                    if (activePlayer !== 'vimeo') return;
+                    const percent = data.percent * 100;
+                    if(progressBar) progressBar.style.width = `${percent}%`;
+                    if(videoTime) videoTime.textContent = `${formatTime(data.seconds)} / ${formatTime(data.duration)}`;
+                });
+            } else if (vimeoPlayerInstance) {
+                vimeoPlayerInstance.loadVideo(vimeoId).then(() => {
+                    vimeoPlayerInstance.play().catch(err => console.log("Vimeo play blocked: ", err));
+                });
+            }
+        } else {
+            return;
         }
         
         if(progressBar) progressBar.style.width = '0%';
@@ -336,8 +406,10 @@ const closeLightbox = () => {
     lightbox.classList.remove('active');
     document.body.classList.remove('lightbox-open');
     
-    if (ytPlayer && isPlayerReady) {
+    if (activePlayer === 'youtube' && ytPlayer && isPlayerReady) {
         ytPlayer.stopVideo();
+    } else if (activePlayer === 'vimeo' && vimeoPlayerInstance) {
+        vimeoPlayerInstance.pause();
     }
     
     if (document.fullscreenElement) {

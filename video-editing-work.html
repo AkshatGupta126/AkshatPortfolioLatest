@@ -85,9 +85,9 @@
                             </div>
                         </div>
                         <!-- Video Card 3 -->
-                        <div class="x-card fade-up delay-2" role="button" data-youtube-id="WEHAUfuzZUk">
+                        <div class="x-card fade-up delay-2" role="button" data-vimeo-video-id="1190778125">
                             <div class="x-card-thumb">
-                                <img src="https://img.youtube.com/vi/WEHAUfuzZUk/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/WEHAUfuzZUk/hqdefault.jpg';" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover; pointer-events:none; filter: brightness(0.7) contrast(1.1); transition: transform 0.6s ease;">
+                                <img src="https://vumbnail.com/1190778125.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/WEHAUfuzZUk/maxresdefault.jpg';" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover; pointer-events:none; filter: brightness(0.7) contrast(1.1); transition: transform 0.6s ease;">
                                 <div class="x-hover-overlay"><span>Play Video</span></div>
                             </div>
                             <div class="x-card-content">
@@ -321,8 +321,9 @@
         <button class="x-lightbox-close" id="lightboxClose">&#10005;</button>
         <div class="x-lightbox-content">
             <div class="x-video-wrapper" id="videoWrapper" style="aspect-ratio: 16/9; max-width: 1200px; width: 100%; position: relative;">
-                <!-- YouTube API container -->
+                <!-- API containers -->
                 <div id="youtubePlayer" style="width:100%; height:100%; border-radius: 12px; background: #000; pointer-events: none;"></div>
+                <div id="vimeoPlayer" style="width:100%; height:100%; border-radius: 12px; background: #000; pointer-events: none; position: absolute; inset: 0; display: none;"></div>
                 
                 <!-- Invisible overlay to capture clicks to play/pause and block YT iframe hover interactions -->
                 <div id="videoClickOverlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 80px; z-index: 10; cursor: pointer; border-radius: 12px;"></div>
@@ -386,6 +387,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
 
     <script src="video-main.js"></script>
 </body>

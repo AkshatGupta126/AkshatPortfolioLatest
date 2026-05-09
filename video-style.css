@@ -275,6 +275,10 @@ body.lightbox-open .cursor-glow {
 /* =========================================================================
    CUSTOM VIDEO PLAYER UI
    ========================================================================= */
+#youtubePlayer {
+    pointer-events: none !important;
+}
+
 .x-video-wrapper {
     position: relative;
     border-radius: 12px;

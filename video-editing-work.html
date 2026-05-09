@@ -51,6 +51,17 @@
             <section class="x-section x-main-grid">
                 <div class="container">
                     <div class="x-grid mt-4" id="projectGrid">
+                        <!-- Video Card 0 -->
+                        <div class="x-card fade-up" role="button" data-youtube-id="Shhr0gi7s1I">
+                            <div class="x-card-thumb">
+                                <img src="https://img.youtube.com/vi/Shhr0gi7s1I/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/Shhr0gi7s1I/hqdefault.jpg';" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover; pointer-events:none; filter: brightness(0.7) contrast(1.1); transition: transform 0.6s ease;">
+                                <div class="x-hover-overlay"><span>Play Video</span></div>
+                            </div>
+                            <div class="x-card-content">
+                                <span class="x-tag">Video Edit</span>
+                                <h3 style="font-size:1.1rem; min-height: 50px;">Narrative Edit: Unspoken Tears</h3>
+                            </div>
+                        </div>
                         <!-- Video Card 1 -->
                         <div class="x-card fade-up" role="button" data-youtube-id="gKSWGzXV5No">
                             <div class="x-card-thumb">
@@ -309,8 +320,64 @@
     <div class="x-lightbox" id="videoLightbox">
         <button class="x-lightbox-close" id="lightboxClose">&#10005;</button>
         <div class="x-lightbox-content">
-            <div class="x-video-wrapper" id="videoWrapper" style="aspect-ratio: 16/9; max-width: 1200px; width: 100%;">
-                <iframe id="youtubeIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%; height:100%; border-radius: 12px; background: #000;"></iframe>
+            <div class="x-video-wrapper" id="videoWrapper" style="aspect-ratio: 16/9; max-width: 1200px; width: 100%; position: relative;">
+                <!-- YouTube API container -->
+                <div id="youtubePlayer" style="width:100%; height:100%; border-radius: 12px; background: #000; pointer-events: none;"></div>
+                
+                <!-- Invisible overlay to capture clicks to play/pause and block YT iframe hover interactions -->
+                <div id="videoClickOverlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 80px; z-index: 10; cursor: pointer; border-radius: 12px;"></div>
+                
+                <!-- Custom Controls -->
+                <div class="custom-video-controls" id="videoControls" style="z-index: 20;">
+                    <div class="video-progress-container" id="progressContainer">
+                        <div class="video-progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="video-controls-bottom">
+                        <div class="video-controls-left">
+                            <button class="control-btn" id="playPauseBtn">
+                                <svg id="playIcon" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                                <svg id="pauseIcon" viewBox="0 0 24 24" width="24" height="24" style="display:none;"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <span class="video-time" id="videoTime">0:00 / 0:00</span>
+                        </div>
+                        <div class="video-controls-right" style="position: relative;">
+                            <button class="control-btn" id="settingsBtn">
+                                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.73 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                            </button>
+                            
+                            <!-- Settings Menu -->
+                            <div class="settings-menu" id="settingsMenu" style="bottom: 40px; right: 0; width: 140px;">
+                                <!-- Main Pane -->
+                                <div id="settingsMainPane">
+                                    <div class="settings-option" id="btnOpenQuality">Quality <span style="font-size: 0.8rem;">&#9656;</span></div>
+                                    <div class="settings-option" id="btnOpenSpeed">Speed <span style="font-size: 0.8rem;">&#9656;</span></div>
+                                </div>
+                                
+                                <!-- Speed Pane -->
+                                <div id="settingsSpeedPane" style="display: none;">
+                                    <div class="settings-header" id="btnBackFromSpeed" style="cursor: pointer;">&#9666; Speed</div>
+                                    <div class="settings-option speed-opt" data-speed="0.5">0.5x</div>
+                                    <div class="settings-option speed-opt active" data-speed="1">Normal</div>
+                                    <div class="settings-option speed-opt" data-speed="1.5">1.5x</div>
+                                    <div class="settings-option speed-opt" data-speed="2">2.0x</div>
+                                </div>
+                                
+                                <!-- Quality Pane -->
+                                <div id="settingsQualityPane" style="display: none;">
+                                    <div class="settings-header" id="btnBackFromQuality" style="cursor: pointer;">&#9666; Quality</div>
+                                    <div class="settings-option quality-opt active" data-quality="default">Auto</div>
+                                    <div class="settings-option quality-opt" data-quality="hd1080">1080p</div>
+                                    <div class="settings-option quality-opt" data-quality="hd720">720p</div>
+                                    <div class="settings-option quality-opt" data-quality="large">480p</div>
+                                </div>
+                            </div>
+                            
+                            <button class="control-btn" id="fullscreenBtn">
+                                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

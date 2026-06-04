@@ -44,31 +44,45 @@ lenis.on('scroll', ({ progress }) => {
 
 // Preloader Animation
 window.addEventListener('load', () => {
-    const tl = gsap.timeline();
+    const hasPreloaderPlayed = sessionStorage.getItem('preloaderPlayed');
 
-    tl.to('.loading-bar .fill', {
-        width: '100%', duration: 0.8, ease: 'power2.inOut'
-    })
-        .to('.logo-text', {
-            y: -20, opacity: 0, duration: 0.5, ease: 'power2.in'
-        }, "+=0.2")
-        .to('.preloader', {
-            yPercent: -100, duration: 0.8, ease: 'power4.inOut'
+    if (hasPreloaderPlayed === 'true') {
+        // Skip preloader animation completely
+        gsap.set('.preloader', { yPercent: -100 });
+        gsap.set('.hero-subtitle', { y: 0, opacity: 1 });
+        gsap.set('.hero-title', { y: 0, opacity: 1 });
+        gsap.set('.hero-role', { y: 0, opacity: 1 });
+        gsap.set('.cta-button', { scale: 1, opacity: 1 });
+        startRoleAnimation();
+    } else {
+        // Play full preloader animation once
+        sessionStorage.setItem('preloaderPlayed', 'true');
+        const tl = gsap.timeline();
+
+        tl.to('.loading-bar .fill', {
+            width: '100%', duration: 0.8, ease: 'power2.inOut'
         })
-        // Start hero animations
-        .from('.hero-subtitle', {
-            y: 20, opacity: 0, duration: 0.6
-        }, "-=0.2")
-        .from('.hero-title', {
-            y: 30, opacity: 0, duration: 0.8, ease: 'power2.out'
-        }, "-=0.4")
-        .from('.hero-role', {
-            y: 20, opacity: 0, duration: 0.6
-        }, "-=0.4")
-        .from('.cta-button', {
-            scale: 0.8, opacity: 0, duration: 0.5, ease: 'back.out(1.7)',
-            onComplete: startRoleAnimation
-        }, "-=0.3");
+            .to('.logo-text', {
+                y: -20, opacity: 0, duration: 0.5, ease: 'power2.in'
+            }, "+=0.2")
+            .to('.preloader', {
+                yPercent: -100, duration: 0.8, ease: 'power4.inOut'
+            })
+            // Start hero animations
+            .from('.hero-subtitle', {
+                y: 20, opacity: 0, duration: 0.6
+            }, "-=0.2")
+            .from('.hero-title', {
+                y: 30, opacity: 0, duration: 0.8, ease: 'power2.out'
+            }, "-=0.4")
+            .from('.hero-role', {
+                y: 20, opacity: 0, duration: 0.6
+            }, "-=0.4")
+            .from('.cta-button', {
+                scale: 0.8, opacity: 0, duration: 0.5, ease: 'back.out(1.7)',
+                onComplete: startRoleAnimation
+            }, "-=0.3");
+    }
 });
 
 // Role Text Animation Loop

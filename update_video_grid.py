@@ -1,8 +1,8 @@
 import os
 import re
 
-html_path = r"c:\Users\ngupd\.gemini\antigravity\scratch\akshat-portfolio\video-editing-work.html"
-videos_dir = r"c:\Users\ngupd\.gemini\antigravity\scratch\akshat-portfolio\Videos Edits"
+html_path = "video-editing-work.html"
+videos_dir = "Videos Edits"
 
 # List all mp4 files
 videos = [f for f in os.listdir(videos_dir) if f.endswith('.mp4')]

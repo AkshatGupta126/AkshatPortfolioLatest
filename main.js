@@ -54,6 +54,7 @@ window.addEventListener('load', () => {
         gsap.set('.hero-role', { y: 0, opacity: 1 });
         gsap.set('.cta-button', { scale: 1, opacity: 1 });
         startRoleAnimation();
+        initTechCanvas();
     } else {
         // Play full preloader animation once
         sessionStorage.setItem('preloaderPlayed', 'true');
@@ -80,7 +81,10 @@ window.addEventListener('load', () => {
             }, "-=0.4")
             .from('.cta-button', {
                 scale: 0.8, opacity: 0, duration: 0.5, ease: 'back.out(1.7)',
-                onComplete: startRoleAnimation
+                onComplete: () => {
+                    startRoleAnimation();
+                    initTechCanvas();
+                }
             }, "-=0.3");
     }
 });
@@ -168,10 +172,10 @@ let mm = gsap.matchMedia();
 
 // Scroll-based background transitions
 const bgTransitions = [
-    { trigger: '.hero', color1: '#0F0F14', color2: '#150027' },
-    { trigger: '.about', color1: '#120020', color2: '#1a0033' },
-    { trigger: '.projects', color1: '#0c0c10', color2: '#15151e' },
-    { trigger: '.contact', color1: '#150027', color2: '#0F0F14' }
+    { trigger: '.hero', color1: '#050608', color2: '#0D0F18' },
+    { trigger: '.about', color1: '#090A10', color2: '#10121D' },
+    { trigger: '.projects', color1: '#07080C', color2: '#0E1119' },
+    { trigger: '.contact', color1: '#0B0C14', color2: '#050608' }
 ];
 
 bgTransitions.forEach(st => {
@@ -240,23 +244,7 @@ gsap.utils.toArray('.timeline-item').forEach((item, i) => {
 // --------------------------------------------------
 mm.add("(min-width: 900px)", () => {
 
-    // Custom Cursor logic
-    const cursor = document.getElementById('cursorGlow');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-
-    const onMouseMove = (e) => {
-        mouseX = e.clientX; mouseY = e.clientY;
-    };
-    window.addEventListener('mousemove', onMouseMove);
-
-    const renderCursor = () => {
-        if (!cursor) return;
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
-        cursor.style.transform = `translate(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%))`;
-    };
-    gsap.ticker.add(renderCursor);
+    // Custom cursor removed per request
 
     // About Section Parallax
     gsap.from('.about-text', {
@@ -306,9 +294,7 @@ mm.add("(min-width: 900px)", () => {
     });
 
     return () => {
-        window.removeEventListener('mousemove', onMouseMove);
-        gsap.ticker.remove(renderCursor);
-        // GSAP automatically cleans up the scroll triggers added within matchMedia
+        // Custom cursor elements removed
     };
 });
 
@@ -342,3 +328,388 @@ mm.add("(max-width: 899px)", () => {
 
     return () => { };
 });
+
+// Interactive Tech Canvas Background
+function initTechCanvas() {
+    const canvas = document.getElementById('techCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width = canvas.width = canvas.offsetWidth;
+    let height = canvas.height = canvas.offsetHeight;
+    
+    // Resize handler
+    window.addEventListener('resize', () => {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+    });
+    
+    const particles = [];
+    const maxParticles = 45; // balanced for performance
+    const connectionDist = 125;
+    
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 1.5 + 1;
+        }
+        
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 70, 85, 0.4)';
+            ctx.fill();
+        }
+    }
+    
+    for (let i = 0; i < maxParticles; i++) {
+        particles.push(new Particle());
+    }
+    
+    // Track mouse in canvas space
+    let mouseX = null;
+    let mouseY = null;
+    
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        });
+        
+        heroSection.addEventListener('mouseleave', () => {
+            mouseX = null;
+            mouseY = null;
+        });
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        // Draw grid structure
+        ctx.strokeStyle = 'rgba(255, 70, 85, 0.02)';
+        ctx.lineWidth = 1;
+        const gridSize = 60;
+        for (let x = 0; x < width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+            ctx.stroke();
+        }
+        for (let y = 0; y < height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+            ctx.stroke();
+        }
+        
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        // Draw lines
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < particles.length; i++) {
+            const p1 = particles[i];
+            
+            // Connect to other particles
+            for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < connectionDist) {
+                    const alpha = (1 - dist / connectionDist) * 0.15;
+                    ctx.strokeStyle = `rgba(255, 70, 85, ${alpha})`;
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                }
+            }
+            
+            // Connect to mouse
+            if (mouseX !== null && mouseY !== null && window.innerWidth >= 900) {
+                const dx = p1.x - mouseX;
+                const dy = p1.y - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 150) {
+                    const alpha = (1 - dist / 150) * 0.25;
+                    ctx.strokeStyle = `rgba(255, 70, 85, ${alpha})`;
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // Draw tactical gamer reticle on background canvas around the cursor
+        if (mouseX !== null && mouseY !== null && window.innerWidth >= 900) {
+            ctx.strokeStyle = 'rgba(255, 70, 85, 0.4)';
+            ctx.lineWidth = 1.5;
+            
+            const size = 18;
+            const gap = 6;
+            
+            // Top Left corner bracket
+            ctx.beginPath();
+            ctx.moveTo(mouseX - size, mouseY - size + gap);
+            ctx.lineTo(mouseX - size, mouseY - size);
+            ctx.lineTo(mouseX - size + gap, mouseY - size);
+            ctx.stroke();
+            
+            // Top Right corner bracket
+            ctx.beginPath();
+            ctx.moveTo(mouseX + size, mouseY - size + gap);
+            ctx.lineTo(mouseX + size, mouseY - size);
+            ctx.lineTo(mouseX + size - gap, mouseY - size);
+            ctx.stroke();
+            
+            // Bottom Left corner bracket
+            ctx.beginPath();
+            ctx.moveTo(mouseX - size, mouseY + size - gap);
+            ctx.lineTo(mouseX - size, mouseY + size);
+            ctx.lineTo(mouseX - size + gap, mouseY + size);
+            ctx.stroke();
+            
+            // Bottom Right corner bracket
+            ctx.beginPath();
+            ctx.moveTo(mouseX + size, mouseY + size - gap);
+            ctx.lineTo(mouseX + size, mouseY + size);
+            ctx.lineTo(mouseX + size - gap, mouseY + size);
+            ctx.stroke();
+            
+            // Glowing red target lock dot
+            ctx.fillStyle = 'rgba(255, 70, 85, 0.8)';
+            ctx.beginPath();
+            ctx.arc(mouseX, mouseY, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+}
+
+// Mobile/Tablet Tapping Feedback (circular PUBG/BGMI crosshair tap indicator)
+if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 900) {
+    let activeIndicator = null;
+
+    window.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+            const touch = e.touches[0];
+            // Clear any active indicator immediately
+            if (activeIndicator) {
+                activeIndicator.classList.add('released');
+                const temp = activeIndicator;
+                setTimeout(() => temp.remove(), 500);
+            }
+            activeIndicator = createTapIndicator(touch.pageX, touch.pageY);
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        if (activeIndicator && e.touches.length > 0) {
+            const touch = e.touches[0];
+            activeIndicator.style.left = `${touch.pageX}px`;
+            activeIndicator.style.top = `${touch.pageY}px`;
+        }
+    }, { passive: true });
+
+    const handleTouchRelease = () => {
+        if (activeIndicator) {
+            activeIndicator.classList.add('released');
+            const temp = activeIndicator;
+            activeIndicator = null;
+            setTimeout(() => temp.remove(), 500);
+        }
+    };
+
+    window.addEventListener('touchend', handleTouchRelease, { passive: true });
+    window.addEventListener('touchcancel', handleTouchRelease, { passive: true });
+}
+
+function createTapIndicator(x, y) {
+    const tap = document.createElement('div');
+    tap.className = 'pubg-tap-effect';
+    tap.style.left = `${x}px`;
+    tap.style.top = `${y}px`;
+    tap.innerHTML = `
+        <svg viewBox="0 0 40 40" width="40" height="40" style="display: block;">
+            <circle cx="20" cy="20" r="2" fill="#FF4655" />
+            <circle cx="20" cy="20" r="9" stroke="#FF4655" stroke-width="1.5" fill="none" />
+            <line x1="20" y1="2" x2="20" y2="6" stroke="#FF4655" stroke-width="1.5" />
+            <line x1="20" y1="34" x2="20" y2="38" stroke="#FF4655" stroke-width="1.5" />
+            <line x1="2" y1="20" x2="6" y2="20" stroke="#FF4655" stroke-width="1.5" />
+            <line x1="34" y1="20" x2="38" y2="20" stroke="#FF4655" stroke-width="1.5" />
+        </svg>
+    `;
+    document.body.appendChild(tap);
+    return tap;
+}
+
+// Click-and-Drag to Scroll with Momentum (Inertia) on Desktop/Laptop
+let isDragging = false;
+let isProjectsSection = false;
+let isHorizontalDrag = false; // Track if the current drag is primarily horizontal
+let startY = 0;
+let startX = 0;
+let startScroll = 0;
+let lastY = 0;
+let lastX = 0;
+let lastTime = 0;
+let velocity = 0;
+let momentumId = null;
+
+const getProjectsTrigger = () => {
+    return ScrollTrigger.getAll().find(st => 
+        st.trigger && st.trigger.classList.contains('projects-pin-container')
+    );
+};
+
+window.addEventListener('mousedown', (e) => {
+    // Only primary left button click triggers drag-scroll, and only on desktop sizes
+    if (e.button !== 0 || window.innerWidth < 900) return;
+    // Don't drag-scroll when interacting with buttons, links, inputs
+    if (e.target.closest('a, button, .menu-toggle, input, textarea')) return;
+
+    isDragging = true;
+    isProjectsSection = !!e.target.closest('.projects, .projects-pin-container, .projects-wrapper');
+    isHorizontalDrag = false;
+
+    startY = e.clientY;
+    startX = e.clientX;
+    startScroll = lenis.scroll;
+    lastY = e.clientY;
+    lastX = e.clientX;
+    lastTime = Date.now();
+    velocity = 0;
+
+    // Cancel any running momentum animation
+    if (momentumId) {
+        cancelAnimationFrame(momentumId);
+        momentumId = null;
+    }
+
+    document.body.classList.add('is-dragging');
+});
+
+window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const now = Date.now();
+    const dt = now - lastTime;
+    const totalDy = e.clientY - startY;
+    const totalDx = e.clientX - startX;
+
+    // Dynamically lock target drag direction inside horizontal scroll section
+    if (isProjectsSection) {
+        if (Math.abs(totalDx) > Math.abs(totalDy)) {
+            isHorizontalDrag = true;
+        } else if (Math.abs(totalDy) > Math.abs(totalDx)) {
+            isHorizontalDrag = false;
+        }
+    } else {
+        isHorizontalDrag = false;
+    }
+
+    const dy = e.clientY - lastY;
+    const dx = isHorizontalDrag ? (e.clientX - lastX) : 0;
+
+    if (dt > 0) {
+        const instantVelocity = isHorizontalDrag ? (dx / dt) : (dy / dt);
+        velocity = velocity * 0.4 + instantVelocity * 0.6;
+    }
+
+    lastY = e.clientY;
+    lastX = e.clientX;
+    lastTime = now;
+
+    let targetScroll = startScroll;
+
+    if (isHorizontalDrag) {
+        targetScroll = startScroll - totalDx;
+        const st = getProjectsTrigger();
+        if (st) {
+            const pinStart = st.start;
+            const pinEnd = st.end;
+            if (targetScroll < pinStart) targetScroll = pinStart;
+            if (targetScroll > pinEnd) targetScroll = pinEnd;
+        }
+    } else {
+        targetScroll = startScroll - totalDy;
+    }
+
+    lenis.scrollTo(targetScroll, { immediate: true });
+});
+
+const handleDragRelease = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    document.body.classList.remove('is-dragging');
+
+    const friction = 0.95; // Smooth slow down factor
+    let currentScroll = lenis.scroll;
+
+    if (Math.abs(velocity) > 0.05) {
+        let lastFrameTime = Date.now();
+
+        const animateMomentum = () => {
+            const now = Date.now();
+            const dt = now - lastFrameTime;
+            lastFrameTime = now;
+
+            const distance = velocity * dt * 1.25;
+            currentScroll -= distance;
+
+            // apply frame-normalized friction
+            velocity *= Math.pow(friction, dt / 16);
+
+            // Clamp and stop momentum if dragging horizontally in projects
+            if (isHorizontalDrag) {
+                const st = getProjectsTrigger();
+                if (st) {
+                    const pinStart = st.start;
+                    const pinEnd = st.end;
+                    if (currentScroll <= pinStart) {
+                        currentScroll = pinStart;
+                        velocity = 0; // stop sliding
+                    } else if (currentScroll >= pinEnd) {
+                        currentScroll = pinEnd;
+                        velocity = 0; // stop sliding
+                    }
+                }
+            }
+
+            lenis.scrollTo(currentScroll, { immediate: true });
+
+            if (Math.abs(velocity) > 0.02) {
+                momentumId = requestAnimationFrame(animateMomentum);
+            } else {
+                momentumId = null;
+            }
+        };
+
+        momentumId = requestAnimationFrame(animateMomentum);
+    }
+};
+
+window.addEventListener('mouseup', handleDragRelease);
+window.addEventListener('mouseleave', handleDragRelease);

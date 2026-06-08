@@ -81,30 +81,27 @@ mm.add("(min-width: 900px)", () => {
     }
 });
 
-// Lightbox System
+// Lightbox System (Simple modal for single designs)
 const cards = document.querySelectorAll('.x-card');
 const lightbox = document.getElementById('brochureLightbox');
 const lightboxImg = document.getElementById('lightboxImage');
 const lightboxClose = document.getElementById('lightboxClose');
-const lightboxPrev = document.getElementById('lightboxPrev');
-const lightboxNext = document.getElementById('lightboxNext');
-const lightboxCounter = document.getElementById('lightboxCounter');
-
-let currentImages = [];
-let currentIndex = 0;
 
 cards.forEach(card => {
     card.addEventListener('click', () => {
         const imagesData = card.getAttribute('data-images');
         if (!imagesData) return;
         
-        // Use a split fallback for empty or malformed strings
-        currentImages = imagesData.split(',').filter(src => src.trim() !== '');
+        const currentImages = imagesData.split(',').filter(src => src.trim() !== '');
         if (currentImages.length === 0) return;
 
-        currentIndex = 0;
+        // Quick re-trigger animation hack
+        lightboxImg.style.animation = 'none';
+        lightboxImg.offsetHeight; // reflow
+        lightboxImg.style.animation = 'slideFadeIn 0.5s ease';
         
-        updateLightbox();
+        lightboxImg.src = currentImages[0].trim();
+        
         lightbox.classList.add('active');
         document.body.classList.add('lightbox-open');
         
@@ -115,20 +112,14 @@ cards.forEach(card => {
     });
 });
 
-const updateLightbox = () => {
-    if (currentImages.length === 0) return;
-    
-    // Quick re-trigger animation hack
-    lightboxImg.style.animation = 'none';
-    lightboxImg.offsetHeight; // reflow
-    lightboxImg.style.animation = 'slideFadeIn 0.5s ease';
-    
-    lightboxImg.src = currentImages[currentIndex].trim();
-    lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
-};
-
 const closeLightbox = () => {
-    lightbox.classList.remove('active');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+    }
+    const lightboxContent = document.querySelector('.x-lightbox-content');
+    if (lightboxContent) {
+        lightboxContent.classList.remove('zooming');
+    }
     document.body.classList.remove('lightbox-open');
     if (typeof lenis !== 'undefined') {
         lenis.start();
@@ -145,26 +136,101 @@ if (lightbox) {
     });
 }
 
-if (lightboxPrev) {
-    lightboxPrev.addEventListener('click', () => {
-        if (currentImages.length === 0) return;
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
-        updateLightbox();
-    });
-}
-
-if (lightboxNext) {
-    lightboxNext.addEventListener('click', () => {
-        if (currentImages.length === 0) return;
-        currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
-        updateLightbox();
-    });
-}
-
-// Keyboard nav mapping
+// Keyboard nav mapping (Escape key close)
 document.addEventListener('keydown', (e) => {
     if (!lightbox || !lightbox.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft' && lightboxPrev) lightboxPrev.click();
-    if (e.key === 'ArrowRight' && lightboxNext) lightboxNext.click();
 });
+
+// Hover Magnifier Zoom Logic
+const lightboxImgWrapper = document.getElementById('lightboxImgWrapper');
+const zoomLens = document.getElementById('zoomLens');
+const zoomWindow = document.getElementById('zoomWindow');
+const lightboxContent = document.querySelector('.x-lightbox-content');
+
+if (lightboxImgWrapper && lightboxImg && zoomLens && zoomWindow && lightboxContent) {
+    const zoomFactor = 2.5;
+    const windowSize = 400; // Match 400px width/height from CSS
+    const gap = 40;
+
+    const handleMouseEnter = () => {
+        if (window.innerWidth < 900) return;
+
+        lightboxContent.classList.add('zooming');
+        zoomWindow.style.backgroundImage = `url('${lightboxImg.src}')`;
+
+        const rect = lightboxImg.getBoundingClientRect();
+        const lensWidth = rect.width / zoomFactor;
+        const lensHeight = rect.height / zoomFactor;
+
+        zoomLens.style.width = `${lensWidth}px`;
+        zoomLens.style.height = `${lensHeight}px`;
+        zoomWindow.style.backgroundSize = `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
+
+        // Calculate position for zoom window
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        // Default: right side of the image
+        let leftPos = rect.right + gap;
+
+        // If it overflows viewport right side, place it on the left side of the image
+        if (leftPos + windowSize > viewportWidth - gap) {
+            leftPos = rect.left - gap - windowSize;
+        }
+
+        // If it still overflows (e.g. narrow screen), clamp it to the right boundary
+        if (leftPos < gap) {
+            leftPos = viewportWidth - gap - windowSize;
+        }
+
+        // Align vertical center with image vertical center
+        let topPos = rect.top + (rect.height - windowSize) / 2;
+
+        // Clamp vertically within screen boundaries
+        if (topPos < gap) topPos = gap;
+        if (topPos + windowSize > viewportHeight - gap) {
+            topPos = viewportHeight - gap - windowSize;
+        }
+
+        zoomWindow.style.left = `${leftPos}px`;
+        zoomWindow.style.top = `${topPos}px`;
+    };
+
+    const handleMouseMove = (e) => {
+        if (window.innerWidth < 900 || !lightboxContent.classList.contains('zooming')) return;
+
+        const rect = lightboxImg.getBoundingClientRect();
+        let mouseX = e.clientX - rect.left;
+        let mouseY = e.clientY - rect.top;
+
+        const lensWidth = rect.width / zoomFactor;
+        const lensHeight = rect.height / zoomFactor;
+
+        let lensX = mouseX - lensWidth / 2;
+        let lensY = mouseY - lensHeight / 2;
+
+        // Clamp lens inside boundaries
+        if (lensX < 0) lensX = 0;
+        if (lensY < 0) lensY = 0;
+        if (lensX > rect.width - lensWidth) lensX = rect.width - lensWidth;
+        if (lensY > rect.height - lensHeight) lensY = rect.height - lensHeight;
+
+        zoomLens.style.left = `${lensX}px`;
+        zoomLens.style.top = `${lensY}px`;
+
+        // Percentage mapping for background position
+        const percentX = (lensX / (rect.width - lensWidth)) * 100;
+        const percentY = (lensY / (rect.height - lensHeight)) * 100;
+
+        zoomWindow.style.backgroundPosition = `${percentX}% ${percentY}%`;
+    };
+
+    const handleMouseLeave = () => {
+        lightboxContent.classList.remove('zooming');
+    };
+
+    lightboxImgWrapper.addEventListener('mouseenter', handleMouseEnter);
+    lightboxImgWrapper.addEventListener('mousemove', handleMouseMove);
+    lightboxImgWrapper.addEventListener('mouseleave', handleMouseLeave);
+}

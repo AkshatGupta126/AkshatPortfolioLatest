@@ -119,6 +119,7 @@ mm.add("(min-width: 900px)", () => {
 const modal = document.getElementById('promptModal');
 const modalBackdrop = document.getElementById('modalBackdrop');
 const modalClose = document.getElementById('modalClose');
+let isModalClosing = false;
 const modalImg = document.getElementById('modalImg');
 const modalTag = document.getElementById('modalTag');
 const modalTitle = document.getElementById('modalTitle');
@@ -128,9 +129,50 @@ const modalTip = document.getElementById('modalTip');
 const copyBtn = document.getElementById('modalCopyBtn');
 const cardElements = document.querySelectorAll('.y-card');
 
+// Dynamically adjust media container height based on image aspect ratio on mobile
+const adjustModalMediaHeight = (imgElement) => {
+    const mediaContainer = document.querySelector('.y-modal-media');
+    if (!mediaContainer) return;
+
+    if (window.innerWidth > 900) {
+        mediaContainer.style.height = '';
+        return;
+    }
+    
+    if (!imgElement) {
+        mediaContainer.style.height = '280px';
+        return;
+    }
+    
+    const applyHeight = (w, h) => {
+        if (h > w) {
+            // Vertical aspect ratio (e.g. 9:16 or 2:3) -> Needs vertical room
+            mediaContainer.style.height = '420px';
+        } else {
+            // Horizontal aspect ratio (e.g. 16:9) -> Needs less height
+            mediaContainer.style.height = '240px';
+        }
+    };
+
+    if (imgElement.complete) {
+        applyHeight(imgElement.naturalWidth, imgElement.naturalHeight);
+    } else {
+        imgElement.addEventListener('load', function onloadHandler() {
+            applyHeight(imgElement.naturalWidth, imgElement.naturalHeight);
+            imgElement.removeEventListener('load', onloadHandler);
+        });
+    }
+};
+
 // Open Modal
 cardElements.forEach(card => {
     const openCardModal = () => {
+        // Reset scroll positions of the modal content containers to the top
+        const modalContainer = document.querySelector('.y-modal-container');
+        if (modalContainer) modalContainer.scrollTop = 0;
+        const modalInfo = document.querySelector('.y-modal-info');
+        if (modalInfo) modalInfo.scrollTop = 0;
+
         // Retrieve dataset fields
         const imgPath = card.getAttribute('data-image');
         const title = card.getAttribute('data-title');
@@ -196,6 +238,7 @@ cardElements.forEach(card => {
                 currentSlide = idx;
                 slideImages[currentSlide].classList.add('active');
                 indicatorBtns[currentSlide].classList.add('active');
+                adjustModalMediaHeight(slideImages[currentSlide]);
             }
             
             const slideTimer = setInterval(() => {
@@ -204,6 +247,9 @@ cardElements.forEach(card => {
             }, 3000);
             
             modal.setAttribute('data-slideshow-timer', slideTimer);
+            
+            // Adjust height for the initial active slide
+            adjustModalMediaHeight(slideImages[0]);
         } else {
             modalImg.style.display = 'block';
             document.getElementById('modalSlideshow').style.display = 'none';
@@ -211,12 +257,20 @@ cardElements.forEach(card => {
             modalImg.setAttribute('src', imgPath);
             modalImg.setAttribute('alt', title);
             modalImg.style.objectPosition = 'center';
+            
+            // Adjust height for static image
+            adjustModalMediaHeight(modalImg);
         }
 
         // Show Modal with smooth entry
         modal.classList.add('active');
         document.body.classList.add('lightbox-open'); // Stops scroll trigger parallax issues
         if (lenis) lenis.stop(); // Stop Lenis smooth scroll
+
+        // Push state to browser history when modal is opened
+        if (window.history.state === null || !window.history.state.modalOpen) {
+            window.history.pushState({ modalOpen: true }, '');
+        }
 
         // Focus close button for accessibility
         setTimeout(() => modalClose.focus(), 100);
@@ -235,7 +289,7 @@ cardElements.forEach(card => {
 });
 
 // Close Modal Function
-const closeModal = () => {
+const closeModal = (fromHistory = false) => {
     // Clear any active slideshow timer
     const slideTimer = modal.getAttribute('data-slideshow-timer');
     if (slideTimer) {
@@ -246,7 +300,46 @@ const closeModal = () => {
     modal.classList.remove('active');
     document.body.classList.remove('lightbox-open');
     if (lenis) lenis.start(); // Restart Lenis smooth scroll
+    
+    // Reset scroll positions of the modal content containers to the top
+    const modalContainer = document.querySelector('.y-modal-container');
+    if (modalContainer) modalContainer.scrollTop = 0;
+    const modalInfo = document.querySelector('.y-modal-info');
+    if (modalInfo) modalInfo.scrollTop = 0;
+    
+    // Reset media container height
+    const mediaContainer = document.querySelector('.y-modal-media');
+    if (mediaContainer) mediaContainer.style.height = '';
+
+    // If manual close (not popstate), pop history state
+    const actualFromHistory = (fromHistory === true);
+    if (!actualFromHistory && window.history.state && window.history.state.modalOpen) {
+        isModalClosing = true;
+        window.history.back();
+    }
 };
+
+// Listen for browser back button to close the active modal instead of navigating back
+window.addEventListener('popstate', (e) => {
+    if (modal.classList.contains('active')) {
+        if (isModalClosing) {
+            isModalClosing = false; // Reset the flag, this popstate was triggered by our manual close
+        } else {
+            closeModal(true); // Close the modal because user clicked the back button
+        }
+    }
+});
+
+// Window resize handler to maintain aspect ratio logic dynamically
+window.addEventListener('resize', () => {
+    if (modal.classList.contains('active')) {
+        const activeImg = modalImg.style.display === 'block' ? modalImg : document.querySelector('.y-slide-img.active');
+        adjustModalMediaHeight(activeImg);
+    } else {
+        const mediaContainer = document.querySelector('.y-modal-media');
+        if (mediaContainer) mediaContainer.style.height = '';
+    }
+});
 
 if (modalClose) modalClose.addEventListener('click', closeModal);
 if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);

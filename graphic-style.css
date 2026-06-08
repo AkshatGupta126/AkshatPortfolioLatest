@@ -80,6 +80,7 @@ a { text-decoration: none; color: inherit; }
 
 /* Layout Grid */
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+.x-theme .container { padding: 0; }
 .x-section { padding: 6rem 0; position: relative; }
 
 /* Desktop Grid System */
@@ -109,7 +110,7 @@ a { text-decoration: none; color: inherit; }
 
 /* Card Design */
 .x-card { display: block; background: var(--x-glass-bg); border: 1px solid var(--x-glass-border); border-radius: 16px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; }
-.x-card-thumb { position: relative; height: 200px; overflow: hidden; background: #000; border-bottom: 1px solid var(--x-glass-border);}
+.x-card-thumb { position: relative; aspect-ratio: 1 / 1; width: 100%; overflow: hidden; background: #000; border-bottom: 1px solid var(--x-glass-border);}
 .x-card-thumb img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7) contrast(1.1); transition: transform 0.6s ease; }
 .x-hover-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(1px); pointer-events: none; }
 .x-hover-overlay span { border: 1px solid var(--x-white); padding: 0.6rem 1.5rem; border-radius: 30px; font-weight: 500; font-size: 0.9rem; transform: translateY(10px); transition: transform 0.4s ease; pointer-events: auto; cursor: pointer; }
@@ -240,13 +241,48 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
 }
 
+.x-lightbox-img-wrapper {
+  position: relative;
+  display: inline-flex;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 .x-lightbox-content img {
   max-width: 100%;
   max-height: 80vh;
   object-fit: contain;
+  display: block;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   animation: slideFadeIn 0.5s ease;
+}
+
+.x-zoom-lens {
+  position: absolute;
+  border: 2.5px dashed var(--x-pink-subtle);
+  background: rgba(227, 49, 208, 0.15);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.x-zoom-window {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 12px;
+  border: 1px solid var(--x-glass-border);
+  background-repeat: no-repeat;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  background-color: #0F0F14;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: none;
+  z-index: 100005;
 }
 
 .x-lightbox-counter {
@@ -272,3 +308,61 @@ body.lightbox-open .cursor-glow {
   display: none !important;
 }
 
+/* Responsive Lightbox Overlay styles for mobiles and tablets */
+@media (max-width: 767px) {
+  .x-lightbox-close {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  .x-lightbox-nav {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  .x-lightbox-nav.prev {
+    left: 10px;
+  }
+  .x-lightbox-nav.next {
+    right: 10px;
+  }
+  .x-lightbox-content {
+    max-width: 95vw;
+  }
+  .x-lightbox-content img {
+    max-height: 65vh;
+    border-radius: 8px;
+  }
+}
+
+/* Desktop layout restructure and visibility of zoom window/lens */
+@media (min-width: 900px) {
+  .x-zoom-window {
+    display: block;
+  }
+  .x-lightbox-content.zooming .x-zoom-window {
+    opacity: 1;
+  }
+  .x-lightbox-content.zooming .x-zoom-lens {
+    opacity: 1;
+  }
+}
+
+/* Phone View Only Spacings */
+@media (max-width: 767px) {
+  .x-section {
+    padding: 2.2rem 0;
+  }
+  .x-hero {
+    min-height: 60vh;
+    padding-top: 80px;
+  }
+  .x-grid {
+    gap: 1.5rem;
+  }
+  .x-footer {
+    padding: 2rem 0;
+  }
+}

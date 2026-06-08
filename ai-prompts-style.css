@@ -680,40 +680,69 @@ body.lightbox-open {
 /* Tablets, iPads, Portrait and Landscape */
 @media (max-width: 900px) {
   .y-modal-container {
+    width: 100%;
+    min-width: 0;
     height: auto;
     max-height: 85vh;
     max-width: 600px;
     flex-direction: column;
     overflow-y: auto;
+    transform: none !important;
+    transition: none !important;
   }
   
   .y-modal-content {
     grid-template-columns: 1fr;
+    width: 100%;
+    min-width: 0;
   }
 
   .y-modal-media {
     height: 280px;
+    width: 100%;
     border-right: none;
     border-bottom: 1px solid var(--y-glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
   }
 
   .y-modal-media img {
     height: 100%;
     width: 100%;
+    object-fit: contain !important;
   }
 
   .y-modal-info {
     padding: 2rem 1.5rem;
     height: auto;
     overflow-y: visible;
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .y-prompt-container {
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .y-prompt-container pre {
+    width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
   
   .y-modal-close {
-    top: 15px;
-    right: 15px;
-    width: 38px;
-    height: 38px;
-    font-size: 1rem;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    background: rgba(10, 10, 12, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 100010;
   }
 }
 

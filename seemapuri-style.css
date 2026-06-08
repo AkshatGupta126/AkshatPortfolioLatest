@@ -100,6 +100,7 @@ h1, h2, h3, h4, h5, h6 {
 .container {
   width: 90%; max-width: 1100px; margin: 0 auto;
 }
+.sp-theme .container { padding: 0; }
 .sp-section {
   padding: 6rem 0;
   position: relative;
@@ -112,6 +113,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 .sp-grid-auto {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+}
+.sp-insights-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+.sp-insights-flex .sp-insight-card {
+  flex: 1 1 300px;
+  max-width: 340px;
 }
 @media (min-width: 900px) {
   .sp-grid-2 { grid-template-columns: 1fr 1fr; gap: 5rem; }
@@ -211,7 +222,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 10. Personas */
 .sp-persona-card { background: rgba(5,26,29,0.7); border: 1px solid var(--sp-glass-border); border-radius: 16px; overflow: hidden; }
 .sp-persona-header { display: flex; align-items: center; gap: 1.5rem; padding: 2rem; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); }
-.sp-avatar { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; font-family: 'Outfit'; font-weight: 700; }
+.sp-avatar { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; font-family: 'Outfit'; font-weight: 700; flex-shrink: 0; }
 .sp-role { color: var(--sp-text-muted); font-size: 0.9rem; }
 .sp-persona-body { padding: 2rem; }
 .sp-persona-body h5 { color: var(--sp-green); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; margin-top: 1.5rem; }
@@ -271,3 +282,94 @@ h1, h2, h3, h4, h5, h6 {
 
 /* GSAP Init states */
 .fade-up { opacity: 0; transform: translateY(40px); }
+
+/* Phone View Only Spacings */
+@media (max-width: 767px) {
+  .sp-section {
+    padding: 3.6rem 0;
+  }
+  .sp-grid-2, .sp-grid-3, .sp-grid-auto {
+    gap: 2rem;
+  }
+  .sp-insights-flex {
+    gap: 1.8rem;
+  }
+  .sp-insights-flex .sp-insight-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .sp-hero {
+    min-height: 70vh;
+    padding-top: 80px;
+  }
+  .sp-hero-subtitle {
+    margin-bottom: 1.5rem;
+  }
+  .sp-hero-title {
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  .sp-team {
+    margin-top: 2.5rem;
+  }
+  .sp-footer {
+    margin-top: 3rem;
+    padding: 2.5rem 0;
+  }
+  
+  /* Compress spacing utilities for phone views */
+  .mt-2 { margin-top: 1.6rem !important; }
+  .mt-3 { margin-top: 2.4rem !important; }
+  .mt-4 { margin-top: 3.2rem !important; }
+  
+  .sp-section-title {
+    margin-bottom: 1.2rem;
+  }
+  .sp-minor-title {
+    margin-bottom: 0.8rem;
+  }
+  .sp-para {
+    margin-bottom: 1.2rem;
+  }
+
+  .sp-highlight-box {
+    padding: 2rem;
+  }
+  .sp-card, .sp-info-card, .sp-insight-card, .sp-problem-box, .sp-solution-card {
+    padding: 1.6rem;
+  }
+  .sp-persona-header {
+    padding: 1.6rem;
+    gap: 1.2rem;
+  }
+  .sp-persona-body {
+    padding: 1.6rem;
+  }
+  .sp-impact-grid {
+    gap: 1.6rem;
+  }
+
+  /* Design Process mobile optimization */
+  .sp-process-flow {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+  .sp-process-step {
+    min-width: 0;
+    flex: 1;
+  }
+  .sp-step-dot {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0.5rem;
+  }
+  .sp-process-line {
+    top: 11px;
+  }
+  .sp-process-step h4 {
+    font-size: 0.9rem;
+  }
+  .sp-process-step span {
+    font-size: 0.7rem;
+  }
+}

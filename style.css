@@ -524,49 +524,8 @@ html.lenis body {
   font-family: var(--font-mono);
   font-weight: 500;
   color: var(--text-muted);
-  margin-bottom: 3rem;
+  margin-bottom: 0;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.cta-button {
-  display: inline-block;
-  padding: 0.8rem 2rem;
-  background: transparent;
-  border: 2px solid var(--accent-cyan);
-  color: var(--accent-cyan);
-  font-family: var(--font-mono);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  box-shadow: 0 0 15px rgba(255, 70, 85, 0.15);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px; /* Clean blocky corners */
-}
-
-.cta-button::before {
-  content: '[';
-  margin-right: 8px;
-}
-
-.cta-button::after {
-  content: ']';
-  margin-left: 8px;
-}
-
-@media (min-width: 900px) {
-  .cta-button {
-    padding: 1rem 2.5rem;
-  }
-
-  .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 25px rgba(255, 70, 85, 0.4);
-    background: var(--accent-cyan);
-    color: #000000;
-    border-color: var(--accent-cyan);
-  }
 }
 
 /* =========================================================================
@@ -589,23 +548,21 @@ html.lenis body {
   border-radius: 20px;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 3/4;
-  /* Taller aspect ratio for mobile to prevent portrait image cropping */
+  aspect-ratio: 16 / 9;
 }
 
 .about-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
-  /* Anchors the image to the top to stop hair from cropping */
+  object-position: center;
 }
 
 .overlay-card {
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  padding: 0.8rem 1.5rem;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.7rem 1.2rem;
   font-family: var(--font-primary);
   font-weight: 500;
   font-size: 0.9rem;
@@ -618,14 +575,14 @@ html.lenis body {
   }
 
   .about-image-wrapper {
-    aspect-ratio: 4/5;
+    aspect-ratio: 16 / 9;
   }
 
   .overlay-card {
-    bottom: 2rem;
-    right: 2rem;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    bottom: 1.2rem;
+    left: 1.2rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
   }
 }
 

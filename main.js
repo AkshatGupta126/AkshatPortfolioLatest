@@ -52,7 +52,6 @@ window.addEventListener('load', () => {
         gsap.set('.hero-subtitle', { y: 0, opacity: 1 });
         gsap.set('.hero-title', { y: 0, opacity: 1 });
         gsap.set('.hero-role', { y: 0, opacity: 1 });
-        gsap.set('.cta-button', { scale: 1, opacity: 1 });
         startRoleAnimation();
         initTechCanvas();
     } else {
@@ -77,15 +76,12 @@ window.addEventListener('load', () => {
                 y: 30, opacity: 0, duration: 0.8, ease: 'power2.out'
             }, "-=0.4")
             .from('.hero-role', {
-                y: 20, opacity: 0, duration: 0.6
-            }, "-=0.4")
-            .from('.cta-button', {
-                scale: 0.8, opacity: 0, duration: 0.5, ease: 'back.out(1.7)',
+                y: 20, opacity: 0, duration: 0.6,
                 onComplete: () => {
                     startRoleAnimation();
                     initTechCanvas();
                 }
-            }, "-=0.3");
+            }, "-=0.4");
     }
 });
 
@@ -98,23 +94,24 @@ function startRoleAnimation() {
     ];
     let roleIndex = 0;
     const roleElement = document.querySelector('.hero-role');
+    if (!roleElement) return;
 
     function animateNextRole() {
         gsap.to(roleElement, {
-            y: -15,
+            y: -12,
             opacity: 0,
-            duration: 0.6,
+            duration: 0.35,
             ease: "power2.in",
-            delay: 2,
+            delay: 1.2,
             onComplete: () => {
                 roleIndex = (roleIndex + 1) % roles.length;
                 roleElement.textContent = roles[roleIndex];
 
-                gsap.set(roleElement, { y: 15 });
+                gsap.set(roleElement, { y: 12 });
                 gsap.to(roleElement, {
                     y: 0,
                     opacity: 1,
-                    duration: 0.6,
+                    duration: 0.35,
                     ease: "power2.out",
                     onComplete: animateNextRole
                 });
